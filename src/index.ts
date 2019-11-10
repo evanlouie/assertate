@@ -10,7 +10,7 @@
  *
  * @param value value to get the type of
  */
-const getType = (value: any): string => {
+function getType(value: any): string {
   const type = typeof value;
   if (type !== "object") {
     return type;
@@ -23,7 +23,7 @@ const getType = (value: any): string => {
   }
 
   return type;
-};
+}
 
 /**
  * Generates an type assertion message for the given `value`
