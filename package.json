@@ -1,0 +1,16 @@
+{
+  "name": "assertate",
+  "version": "1.0.0-alpha-1",
+  "description": "TypeScript assertion helpers",
+  "main": "index.js",
+  "author": "Evan Louie <evlouie@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.7",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.2"
+  }
+}
