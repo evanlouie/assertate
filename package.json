@@ -12,11 +12,16 @@
   "author": "Evan Louie <evlouie@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prepublish": "tsc"
+    "prepublish": "tsc",
+    "test": "jest",
+    "test-watch": "jest --watchAll"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.22",
     "@types/node": "^12.12.7",
+    "jest": "^24.9.0",
     "prettier": "^1.19.1",
+    "ts-jest": "^24.1.0",
     "typescript": "^3.7.2"
   }
 }
