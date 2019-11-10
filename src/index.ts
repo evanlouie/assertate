@@ -5,6 +5,27 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Returns a refined type of an object. Defaults to `typeof` unless the value is
+ * an array or null, in which case 'array' or 'null' is returned
+ *
+ * @param value value to get the type of
+ */
+const getType = (value: any): string => {
+  const type = typeof value;
+  if (type !== "object") {
+    return type;
+  }
+  if (Array.isArray(value)) {
+    return "array";
+  }
+  if (value === null) {
+    return "null";
+  }
+
+  return type;
+};
+
+/**
  * Generates an type assertion message for the given `value`
  *
  * @param value value being type-checked
@@ -17,8 +38,8 @@ function AssertionMessage(
   variableName?: string
 ): string {
   const message = variableName
-    ? `${variableName} must be of type '${type}', ${typeof value} provided`
-    : `expected value of type '${type}', '${typeof value}' provided`;
+    ? `${variableName} must be of type '${type}', ${getType(value)} provided`
+    : `expected value of type '${type}', '${getType(value)}' provided`;
   return message;
 }
 
