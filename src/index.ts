@@ -11,16 +11,16 @@
  * @param type the expected value as a string; eg 'string', 'boolean', 'number'
  * @param variableName the name of the variable being type-checked
  */
-export const AssertionMessage = (
+function AssertionMessage(
   value: string,
   type: string,
   variableName?: string
-): string => {
+): string {
   const message = variableName
     ? `${variableName} must be of type '${type}', ${typeof value} provided`
     : `expected value of type '${type}', '${typeof value}' provided`;
   return message;
-};
+}
 
 /**
  * Type-checks the provided `value` to be a string, throws an Error if it is not
