@@ -1,8 +1,9 @@
 {
   "name": "assertate",
-  "version": "1.0.0-alpha-2",
+  "version": "1.0.0-alpha-3",
   "description": "TypeScript assertion helpers",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Evan Louie <evlouie@gmail.com>",
   "license": "MIT",
   "scripts": {
