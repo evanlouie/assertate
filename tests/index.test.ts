@@ -1,4 +1,3 @@
-import { AssertionError } from "assert";
 import {
   assert,
   assertIsArray,
@@ -7,7 +6,7 @@ import {
   assertIsNumber,
   assertIsString,
   assertIsUndefined
-} from "./index";
+} from "../src/index";
 
 /**
  * Returns a refined type of an object. Defaults to `typeof` unless the value is
@@ -36,7 +35,7 @@ const getType = (value: any): string => {
  * @param assertion the assertion which should throw
  */
 const shouldThrow = (assertion: (...args: any) => void) => {
-  let error: AssertionError | undefined;
+  let error: Error | undefined;
   try {
     assertion();
   } catch (err) {
@@ -51,7 +50,7 @@ const shouldThrow = (assertion: (...args: any) => void) => {
  * @param assertion the assertion which should pass
  */
 const shouldNotThrow = (assertion: (...args: any) => void) => {
-  let error: AssertionError | undefined;
+  let error: Error | undefined;
   try {
     assertion();
   } catch (err) {
