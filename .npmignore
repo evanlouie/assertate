@@ -1,6 +1,8 @@
 # Custom
 .vscode
 node_modules
+docs
+.nojekyll
 
 # Logs
 logs

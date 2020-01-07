@@ -16,6 +16,7 @@
   "homepage": "https://github.com/evanlouie/assertate/",
   "license": "MIT",
   "scripts": {
+    "generate-docs": "shx rm -rf docs && typedoc --out docs src && shx touch docs/.nojekyll",
     "prepublish": "tsc",
     "test": "jest",
     "test-watch": "jest --watchAll"
@@ -25,7 +26,9 @@
     "@types/node": "^13.1.4",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
+    "shx": "^0.3.2",
     "ts-jest": "^24.2.0",
+    "typedoc": "^0.15.6",
     "typescript": "^3.7.4"
   }
 }
