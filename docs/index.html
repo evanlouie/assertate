@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>assertate - v2.1.1</title>
+	<title>assertate - v2.2.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">assertate - v2.1.1</a>
+					<a href="index.html" class="title">assertate - v2.2.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> assertate - v2.1.1</h1>
+			<h1> assertate - v2.2.0</h1>
 		</div>
 	</div>
 </header>
@@ -89,15 +89,23 @@
 					<h2>About</h2>
 				</a>
 				<p>A minimal library exposing basic
-					<a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions">TypeScript 3.7 assertions</a>
-				helpers.</p>
+					<a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions">TypeScript 3.7 assertion</a>
+					helpers with the goal of providing the out of the box assertions that most
+				people need and have to rewrite for every project.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
 				<pre><code class="language-sh">yarn add assertate</code></pre>
-				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
-					<h2>Example</h2>
+				<p>Or</p>
+				<pre><code class="language-sh">npm install assertate</code></pre>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
 				</a>
+				<a href="#the-basics" id="the-basics" style="color: inherit; text-decoration: none;">
+					<h3>The Basics</h3>
+				</a>
+				<p>The library provides the of the box assertions and control flow functions that
+				you will need to validate basic data and primitive types.</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {
   assert,
   assertIsNumber,
@@ -109,7 +117,9 @@
 } <span class="hljs-keyword">from</span> <span class="hljs-string">"assertate"</span>;
 
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// use the `assertIs` functions for exception based assertions</span>
+<span class="hljs-comment">// Exception based assertions</span>
+<span class="hljs-comment">//------------------------------------------------------------------------------</span>
+<span class="hljs-comment">// use the `assertIs` and `assert` functions for exception based assertions</span>
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
 <span class="hljs-keyword">try</span> {
   <span class="hljs-keyword">const</span> someUndefinedVar: unknown = <span class="hljs-literal">undefined</span>;
@@ -120,9 +130,12 @@
 
 <span class="hljs-keyword">const</span> someNumber: unknown = <span class="hljs-number">123.456</span>;
 assertIsNumber(someNumber); <span class="hljs-comment">// will not throw</span>
-<span class="hljs-keyword">const</span> asFixedPointZero = someNumber.toFixed(<span class="hljs-number">0</span>); <span class="hljs-comment">// compiler now knows `someNumber` is a number and has all instance methods that a number has</span>
+<span class="hljs-comment">// compiler now knows `someNumber` is a number and has all instance methods that a number has</span>
+<span class="hljs-keyword">const</span> asFixedPointZero = someNumber.toFixed(<span class="hljs-number">0</span>);
 
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// Control-flow based assertions</span>
+<span class="hljs-comment">//------------------------------------------------------------------------------</span>
 <span class="hljs-comment">// use the `is` functions for control-flow based assertions</span>
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
 <span class="hljs-keyword">const</span> anotherNumber: unknown = <span class="hljs-number">123.123</span>;
@@ -133,26 +146,154 @@ assertIsNumber(someNumber); <span class="hljs-comment">// will not throw</span>
 
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
 <span class="hljs-comment">// General assertion</span>
-<span class="hljs-comment">// - use the `assert` function if you need to compose more custom assertions</span>
+<span class="hljs-comment">//------------------------------------------------------------------------------</span>
+<span class="hljs-comment">// use the `assert` function if you need to write or compose more custom</span>
+<span class="hljs-comment">// assertions</span>
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
 <span class="hljs-keyword">const</span> someNumberOrString: unknown = <span class="hljs-string">"123"</span>;
-assert(isNumber(someNumberOrString) || isString(someNumberOrString)); <span class="hljs-comment">// compiler now knows someNumberOrString is of type `number | string`</span>
+<span class="hljs-comment">// you can compose the `is` assertions using `assert`</span>
+<span class="hljs-comment">// compiler now knows someNumberOrString is of type `number | string`</span>
+assert(isNumber(someNumberOrString) || isString(someNumberOrString));
+
+<span class="hljs-comment">// you can write custom standard type-guards using assert as well</span>
+assert(<span class="hljs-keyword">typeof</span> someNumberOrString === <span class="hljs-string">"string"</span>);
+<span class="hljs-comment">// compiler now knows that someNumberOrString is a string</span>
+<span class="hljs-keyword">const</span> someNumberOrStringChars = someNumberOrStringChars.split(<span class="hljs-string">","</span>);
 
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
 <span class="hljs-comment">// Set your own assertion messages</span>
-<span class="hljs-comment">// - a default assertion message is provided; will most likely be good enough for most cases</span>
+<span class="hljs-comment">//------------------------------------------------------------------------------</span>
+<span class="hljs-comment">// A default assertion message is provided; will most likely be good enough for</span>
+<span class="hljs-comment">// most cases</span>
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
 <span class="hljs-keyword">const</span> defaultAssertionMessage = getAssertionMessage();
 setAssertionMessage(
   <span class="hljs-function">(<span class="hljs-params">someValue, expectedType</span>) =&gt;</span>
-    <span class="hljs-string">`Expected a <span class="hljs-subst">${expectedType}</span>, got a <span class="hljs-subst">${getType(someValue)}</span>`</span>
+    <span class="hljs-string">`Im your message! Expected a <span class="hljs-subst">${expectedType}</span>, got a <span class="hljs-subst">${getType(someValue)}</span>`</span>
 );
 <span class="hljs-keyword">try</span> {
   <span class="hljs-keyword">const</span> aNumber: unknown = <span class="hljs-number">123</span>;
   assertIsString(aNumber);
 } <span class="hljs-keyword">catch</span> (err) {
-  <span class="hljs-built_in">console</span>.log(err); <span class="hljs-comment">// An error with message 'Expected a string, got a number' will be logged</span>
+  <span class="hljs-built_in">console</span>.log(err); <span class="hljs-comment">// An error with message 'Im your message! Expected a string, got a number' will be logged</span>
 }</code></pre>
+				<a href="#complex-example----assertions-on-your-domain-data" id="complex-example----assertions-on-your-domain-data" style="color: inherit; text-decoration: none;">
+					<h3>Complex Example -- Assertions on your domain data</h3>
+				</a>
+				<p>When interacting with data over the wire, its important that we validate the
+					data we receive is valid to what our domain logic expects. With assertions, we
+					can safely validate the data we receive both matches the expected types, but
+				also add custom domain logic to validate that the data has the a valid value.</p>
+				<pre><code class="language-typescript"><span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// In this example we our going to write a Wizard validator.</span>
+<span class="hljs-comment">// A Wizard is just a human that can do magic!</span>
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-keyword">type</span> Human = {
+  name: <span class="hljs-built_in">string</span>;
+  age: <span class="hljs-built_in">number</span>;
+};
+
+<span class="hljs-keyword">type</span> Magical = {
+  canDoMagic: <span class="hljs-literal">true</span>;
+};
+
+<span class="hljs-keyword">type</span> Wizard = Human &amp; Magical;
+
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// Now lets write some type-predicates to validate our domain logic</span>
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">/**
+ * Determines if the `value` is a valid Human
+ * - Has some non-empty string name
+ * - Age is greater than 0
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isHuman</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Human</span> </span>{
+  <span class="hljs-comment">// we can now validate the data in the object matches our expected types</span>
+  <span class="hljs-keyword">if</span> (isObject(value) &amp;&amp; isString(value?.name) &amp;&amp; isNumber(value?.age)) {
+    <span class="hljs-keyword">const</span> { name, age } = value; <span class="hljs-comment">// compiler knows `name` is a string and `age` is a number</span>
+    <span class="hljs-comment">// we can do our own custom validations against the type-checked data as well</span>
+    <span class="hljs-comment">// humans must be older than 0 and have a non-empty string name</span>
+    <span class="hljs-keyword">if</span> (age &gt;= <span class="hljs-number">0</span> &amp;&amp; name.length &gt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+
+<span class="hljs-comment">/**
+ * Determines if the `value` has a magical property
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isMagical</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Magical</span> </span>{
+  <span class="hljs-keyword">return</span> isObject(value) &amp;&amp; value?.magical === <span class="hljs-literal">true</span>;
+}
+
+<span class="hljs-comment">/**
+ * Determines if the `value` is a Wizard
+ * - is a human
+ * - is magical
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isWizard</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Wizard</span> </span>{
+  <span class="hljs-keyword">return</span> isHuman(value) &amp;&amp; isMagical(value);
+}
+
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// Lets write some type assertions that use the type-predicates we wrote</span>
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">/**
+ * Asserts that `value` is a Human object
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assertIsHuman</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Human</span> </span>{
+  assert(isHuman(value));
+}
+
+<span class="hljs-comment">/**
+ * Asserts that `value` is a Magical object
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assertIsMagical</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Magical</span> </span>{
+  assert(isMagical(value));
+}
+
+<span class="hljs-comment">/**
+ * Asserts that `value` is a Wizard
+ * @throws {Error} if it is not a valid wizard
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assertIsWizard</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Wizard</span> </span>{
+  assert(isWizard(value));
+}
+
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// Now imagine the following two humans are fetched from over the wire and that</span>
+<span class="hljs-comment">// we know absolutely nothing about the data received.</span>
+<span class="hljs-comment">// For the sake of the example, we know that they both have the 3 valid</span>
+<span class="hljs-comment">// properties needed to be type-checked; but when receiving them from over</span>
+<span class="hljs-comment">// a REST endpoint or some random JSON file, we would know absolutely nothing.</span>
+<span class="hljs-comment">// The data retrieved could be a list, an object, a number, a string, anteing.</span>
+<span class="hljs-comment">//</span>
+<span class="hljs-comment">// With the `assertIsWizard` function we wrote, we can validate that:</span>
+<span class="hljs-comment">//  - the data received is in fact an object</span>
+<span class="hljs-comment">//  - the object has the expected keys</span>
+<span class="hljs-comment">//  - the values of the keys conform to our expected domain logic</span>
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// Dr. Strange? He's magic!</span>
+<span class="hljs-keyword">const</span> stephenStrange: unknown = {
+  name: <span class="hljs-string">"Stephen Strange"</span>,
+  age: <span class="hljs-number">90</span>, <span class="hljs-comment">// born 1930</span>
+  canDoMagic: <span class="hljs-literal">true</span>
+};
+
+<span class="hljs-comment">// Iron Man? sadly not</span>
+<span class="hljs-keyword">const</span> tonyStark: unknown = {
+  name: <span class="hljs-string">"Tony Stark"</span>,
+  age: <span class="hljs-number">50</span>, <span class="hljs-comment">// born 1970</span>
+  canDoMagic: <span class="hljs-literal">false</span>
+};
+
+assertIsHuman(stephenStrange); <span class="hljs-comment">// no Error thrown</span>
+assertIsHuman(tonyStark); <span class="hljs-comment">// no Error thrown</span>
+assertIsMagical(stephenStrange); <span class="hljs-comment">// no Error thrown</span>
+assertIsMagical(tonyStark); <span class="hljs-comment">// Error thrown</span>
+assertIsWizard(stephenStrange); <span class="hljs-comment">// no Error thrown</span>
+assertIsWizard(tonyStark); <span class="hljs-comment">// Error thrown</span></code></pre>
 				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
 					<h2>API</h2>
 				</a>
