@@ -11,8 +11,9 @@
 ## About
 
 A minimal library exposing basic
-[TypeScript 3.7 assertions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)
-helpers.
+[TypeScript 3.7 assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)
+helpers with the goal of providing the out of the box assertions that most
+people need and have to rewrite for every project.
 
 ## Installation
 
@@ -26,7 +27,12 @@ Or
 npm install assertate
 ```
 
-## Example
+## Examples
+
+### The Basics
+
+The library provides the of the box assertions and control flow functions that
+you will need to validate basic data and primitive types.
 
 ```typescript
 import {
@@ -100,6 +106,126 @@ try {
 } catch (err) {
   console.log(err); // An error with message 'Im your message! Expected a string, got a number' will be logged
 }
+```
+
+### Complex Example -- Assertions on your domain data
+
+When interacting with data over the wire, its important that we validate the
+data we receive is valid to what our domain logic expects. With assertions, we
+can safely validate the data we receive both matches the expected types, but
+also add custom domain logic to validate that the data has the a valid value.
+
+```typescript
+////////////////////////////////////////////////////////////////////////////////
+// In this example we our going to write a Wizard validator.
+// A Wizard is just a human that can do magic!
+////////////////////////////////////////////////////////////////////////////////
+type Human = {
+  name: string;
+  age: number;
+};
+
+type Magical = {
+  canDoMagic: true;
+};
+
+type Wizard = Human & Magical;
+
+////////////////////////////////////////////////////////////////////////////////
+// Now lets write some type-predicates to validate our domain logic
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * Determines if the `value` is a valid Human
+ * - Has some non-empty string name
+ * - Age is greater than 0
+ */
+function isHuman(value: unknown): value is Human {
+  // we can now validate the data in the object matches our expected types
+  if (isObject(value) && isString(value?.name) && isNumber(value?.age)) {
+    const { name, age } = value; // compiler knows `name` is a string and `age` is a number
+    // we can do our own custom validations against the type-checked data as well
+    // humans must be older than 0 and have a non-empty string name
+    if (age >= 0 && name.length > 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Determines if the `value` has a magical property
+ */
+function isMagical(value: unknown): value is Magical {
+  return isObject(value) && value?.magical === true;
+}
+
+/**
+ * Determines if the `value` is a Wizard
+ * - is a human
+ * - is magical
+ */
+function isWizard(value: unknown): value is Wizard {
+  return isHuman(value) && isMagical(value);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Lets write some type assertions that use the type-predicates we wrote
+////////////////////////////////////////////////////////////////////////////////
+/**
+ * Asserts that `value` is a Human object
+ */
+function assertIsHuman(value: unknown): asserts value is Human {
+  assert(isHuman(value));
+}
+
+/**
+ * Asserts that `value` is a Magical object
+ */
+function assertIsMagical(value: unknown): asserts value is Magical {
+  assert(isMagical(value));
+}
+
+/**
+ * Asserts that `value` is a Wizard
+ * @throws {Error} if it is not a valid wizard
+ */
+function assertIsWizard(value: unknown): asserts value is Wizard {
+  assert(isWizard(value));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Now imagine the following two humans are fetched from over the wire and that
+// we know absolutely nothing about the data received.
+// For the sake of the example, we know that they both have the 3 valid
+// properties needed to be type-checked; but when receiving them from over
+// a REST endpoint or some random JSON file, we would know absolutely nothing.
+// The data retrieved could be a list, an object, a number, a string, anteing.
+//
+// With the `assertIsWizard` function we wrote, we can validate that:
+//  - the data received is in fact an object
+//  - the object has the expected keys
+//  - the values of the keys conform to our expected domain logic
+////////////////////////////////////////////////////////////////////////////////
+// Dr. Strange? He's magic!
+const stephenStrange: unknown = {
+  name: "Stephen Strange",
+  age: 90, // born 1930
+  canDoMagic: true
+};
+
+// Iron Man? sadly not
+const tonyStark: unknown = {
+  name: "Tony Stark",
+  age: 50, // born 1970
+  canDoMagic: false
+};
+
+assertIsHuman(stephenStrange); // no Error thrown
+assertIsHuman(tonyStark); // no Error thrown
+assertIsMagical(stephenStrange); // no Error thrown
+assertIsMagical(tonyStark); // Error thrown
+assertIsWizard(stephenStrange); // no Error thrown
+assertIsWizard(tonyStark); // Error thrown
 ```
 
 ## API
