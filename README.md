@@ -20,6 +20,12 @@ helpers.
 yarn add assertate
 ```
 
+Or
+
+```sh
+npm install assertate
+```
+
 ## Example
 
 ```typescript
