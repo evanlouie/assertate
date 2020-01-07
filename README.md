@@ -15,9 +15,9 @@ people need and have to rewrite for every project.
 | ECMA-262    |           | \*\* |
 
 - \* This library will work both with vanilla JavaScript as well as lower
-  versions of TypeScript. Assertions will throw Errors when the in all
-  environments, however the the TS compiler will only know the narrowed type
-  after an assertion passes in version `>=3.7.0`.
+  versions of TypeScript. Assertions will throw the expected Errors in all
+  environments, however the the TS compiler will only know the narrowed type if
+  an assertion passes in version `>=3.7.0`.
 - \*\* This library offers helpers around
   [`BigInt`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
   and
@@ -138,6 +138,8 @@ can safely validate the data we receive both matches the expected types, but
 also add custom domain logic to validate that the data has the a valid value.
 
 ```typescript
+import { isObject, isString, isNumber, assert } from "assertate";
+
 ////////////////////////////////////////////////////////////////////////////////
 // In this example we our going to write a Wizard validator.
 // A Wizard is just a human that can do magic!
@@ -167,7 +169,7 @@ function isHuman(value: unknown): value is Human {
     const { name, age } = value; // compiler knows `name` is a string and `age` is a number
     // we can do our own custom validations against the type-checked data as well
     // humans must be older than 0 and have a non-empty string name
-    if (age >= 0 && name.length > 0) {
+    if (age > 0 && name.length > 0) {
       return true;
     }
   }
