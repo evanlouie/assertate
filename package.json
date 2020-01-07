@@ -17,7 +17,7 @@
   "license": "MIT",
   "scripts": {
     "generate-docs": "shx rm -rf docs && typedoc --out docs src && shx touch docs/.nojekyll",
-    "prepublish": "tsc",
+    "prepublish": "shx rm -rf dist && tsc",
     "test": "jest",
     "test-watch": "jest --watchAll"
   },
