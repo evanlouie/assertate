@@ -91,6 +91,71 @@
 				<p>A minimal library exposing basic
 					<a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions">TypeScript 3.7 assertions</a>
 				helpers.</p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<pre><code class="language-sh">yarn add assertate</code></pre>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h2>Example</h2>
+				</a>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {
+  assert,
+  assertIsNumber,
+  getAssertionMessage,
+  getType,
+  isNumber,
+  isString,
+  setAssertionMessage
+} <span class="hljs-keyword">from</span> <span class="hljs-string">"assertate"</span>;
+
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// use the `assertIs` functions for exception based assertions</span>
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">const</span> someUndefinedVar: unknown = <span class="hljs-literal">undefined</span>;
+  assertIsNumber(someUndefinedVar); <span class="hljs-comment">// will throw an Error</span>
+} <span class="hljs-keyword">catch</span> (err) {
+  <span class="hljs-built_in">console</span>.error(err); <span class="hljs-comment">// An assertion Error will be logged with the message set earlier by `setAssertionMessage`</span>
+}
+
+<span class="hljs-keyword">const</span> someNumericVar: unknown = <span class="hljs-number">123.456</span>;
+assertIsNumber(someNumericVar); <span class="hljs-comment">// will not throw</span>
+<span class="hljs-keyword">const</span> asFixedPointZero = someNumericVar.toFixed(<span class="hljs-number">0</span>); <span class="hljs-comment">// compiler now knows `someNumericVar` is a number and has all instance methods that a number has</span>
+
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// use the `is` functions for control-flow based assertions</span>
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-keyword">const</span> anotherNumber: unknown = <span class="hljs-number">123.123</span>;
+<span class="hljs-keyword">if</span> (isNumber(anotherNumber)) {
+  <span class="hljs-comment">// compiler now knows that in this if block, anotherNumber` is a number</span>
+  <span class="hljs-keyword">const</span> anotherNumberAsFixedPointZero = anotherNumber.toFixed(<span class="hljs-number">0</span>);
+}
+
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// General assertion</span>
+<span class="hljs-comment">// - use the `assert` function if you need to compose more custom assertions</span>
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-keyword">const</span> someNumberOrString: unknown = <span class="hljs-string">"123"</span>;
+assert(isNumber(someNumberOrString) || isString(someNumberOrString)); <span class="hljs-comment">// compiler now knows someNumberOrString is of type `number | string`</span>
+
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-comment">// Set your own assertion messages</span>
+<span class="hljs-comment">// - a default assertion message is provided; will most likely be good enough for most cases</span>
+<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
+<span class="hljs-keyword">const</span> defaultAssertionMessage = getAssertionMessage();
+setAssertionMessage(
+  <span class="hljs-function">(<span class="hljs-params">someValue, expectedType</span>) =&gt;</span>
+    <span class="hljs-string">`Expected a <span class="hljs-subst">${expectedType}</span>, got a <span class="hljs-subst">${getType(someValue)}</span>`</span>
+);
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">const</span> aNumber: unknown = <span class="hljs-number">123</span>;
+  assertIsString(aNumber);
+} <span class="hljs-keyword">catch</span> (err) {
+  <span class="hljs-built_in">console</span>.log(err); <span class="hljs-comment">// An error with message 'Expected a string, got a number' will be logged</span>
+}</code></pre>
+				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+					<h2>API</h2>
+				</a>
 				<p>Swing by the <a href="https://evanlouie.github.io/assertate/">docs</a> to get a full look
 				at the available functions.</p>
 			</div>

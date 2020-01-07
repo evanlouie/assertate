@@ -1,25 +1,26 @@
 import {
-  setAssertionMessage,
   assert,
   assertIsArray,
+  assertIsBigInt,
   assertIsBoolean,
   assertIsNull,
   assertIsNumber,
-  assertIsBigInt,
+  assertIsObject,
   assertIsString,
-  assertIsUndefined,
   assertIsSymbol,
+  assertIsUndefined,
+  getAssertionMessage,
   getType,
-  isNumber,
-  isBigInt,
-  isString,
-  isBoolean,
   isArray,
-  isObject,
-  isSymbol,
+  isBigInt,
+  isBoolean,
   isNull,
+  isNumber,
+  isObject,
+  isString,
+  isSymbol,
   isUndefined,
-  assertIsObject
+  setAssertionMessage
 } from "../src/index";
 
 const testValues = [
@@ -401,6 +402,39 @@ describe("setAssertionMessage", () => {
     expect(error).toBeDefined();
     expect(error!.message).toBe(
       "I am a custom message: not a number | number | foobar"
+    );
+  });
+});
+
+describe("getAssertionMessage", () => {
+  const defaultAssertionMessage = getAssertionMessage();
+  beforeEach(() => {
+    setAssertionMessage(defaultAssertionMessage);
+  });
+
+  test("get default, set a new one, set the default back", () => {
+    const defaultAssertionMessage = getAssertionMessage();
+    const someMessage = "I'm a custom message";
+    setAssertionMessage((someValue, someType) => someMessage);
+
+    let error: Error | undefined;
+    try {
+      assertIsNumber("not a number", "foobar");
+    } catch (err) {
+      error = err;
+    }
+    expect(error).toBeDefined();
+    expect(error!.message).toBe(someMessage);
+
+    setAssertionMessage(defaultAssertionMessage);
+    try {
+      assertIsNumber("not a number", "foobar");
+    } catch (err) {
+      error = err;
+    }
+    expect(error).toBeDefined();
+    expect(error!.message).toBe(
+      "foobar must be of type 'number', 'string' provided"
     );
   });
 });

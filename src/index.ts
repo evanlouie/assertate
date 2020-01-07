@@ -22,7 +22,7 @@ export function getType(value: unknown) {
   return type;
 }
 
-type AssertionMessageType = (
+export type AssertionMessageType = (
   value: unknown,
   type: string,
   variableName?: string
@@ -46,8 +46,20 @@ let AssertionMessage: AssertionMessageType = (
   return message;
 };
 
+/**
+ * Sets the global AssertionMessage with the `message` provided
+ *
+ * @param message assertion message generator to replace the current generator with
+ */
 export function setAssertionMessage(message: AssertionMessageType) {
   AssertionMessage = message;
+}
+
+/**
+ * Gets the currently set global AssertionMessage
+ */
+export function getAssertionMessage() {
+  return AssertionMessage;
 }
 
 /**
