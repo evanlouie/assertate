@@ -11,15 +11,10 @@
  * @param value value to get the type of
  */
 export function getType(value: unknown) {
-  const type = typeof value;
-  if (type !== "object") {
-    return type;
-  }
   if (value === null) {
     return "null";
   }
-
-  return type;
+  return typeof value;
 }
 
 export type AssertionMessageType = (

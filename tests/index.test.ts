@@ -45,7 +45,8 @@ const testValues = [
   Symbol(),
   Symbol(123),
   null,
-  undefined
+  undefined,
+  () => 123
 ];
 const stringList = testValues.filter(value => getType(value) === "string");
 const numberList = testValues.filter(value => getType(value) === "number");
