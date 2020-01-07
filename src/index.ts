@@ -109,7 +109,7 @@ export function isArray(value: unknown): value is unknown[] {
  *
  * @param value value to type-check as an object
  */
-export function isObject<T extends { [key: string]: any }>(
+export function isObject<T extends { [key: string]: unknown }>(
   value: unknown
 ): value is T {
   return getType(value) === "object";
