@@ -1,7 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Assertion Helpers
 // Notes:
-// - Assertion functions require their declaration to be name-qualified at runtime (not anonymous), ie; arrow-functions not allowed
+//  - Assertion functions require their declaration to be name-qualified at
+//    runtime (not anonymous), ie; arrow-functions not allowed
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
