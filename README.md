@@ -199,7 +199,7 @@ function assertIsWizard(value: unknown): asserts value is Wizard {
 // For the sake of the example, we know that they both have the 3 valid
 // properties needed to be type-checked; but when receiving them from over
 // a REST endpoint or some random JSON file, we would know absolutely nothing.
-// The data retrieved could be a list, an object, a number, a string, anteing.
+// The data retrieved could be a list, an object, a number, a string, anything.
 //
 // With the `assertIsWizard` function we wrote, we can validate that:
 //  - the data received is in fact an object
