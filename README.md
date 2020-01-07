@@ -40,19 +40,19 @@ try {
   const someUndefinedVar: unknown = undefined;
   assertIsNumber(someUndefinedVar); // will throw an Error
 } catch (err) {
-  console.error(err); // An assertion Error will be logged with the message set earlier by `setAssertionMessage`
+  console.error(err); // An assertion Error will be logged
 }
 
-const someNumericVar: unknown = 123.456;
-assertIsNumber(someNumericVar); // will not throw
-const asFixedPointZero = someNumericVar.toFixed(0); // compiler now knows `someNumericVar` is a number and has all instance methods that a number has
+const someNumber: unknown = 123.456;
+assertIsNumber(someNumber); // will not throw
+const asFixedPointZero = someNumber.toFixed(0); // compiler now knows `someNumber` is a number and has all instance methods that a number has
 
 ////////////////////////////////////////////////////////////////////////////////
 // use the `is` functions for control-flow based assertions
 ////////////////////////////////////////////////////////////////////////////////
 const anotherNumber: unknown = 123.123;
 if (isNumber(anotherNumber)) {
-  // compiler now knows that in this if block, anotherNumber` is a number
+  // compiler now knows that in this if block, `anotherNumber` is a number
   const anotherNumberAsFixedPointZero = anotherNumber.toFixed(0);
 }
 
