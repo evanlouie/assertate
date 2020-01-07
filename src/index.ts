@@ -62,18 +62,9 @@ export function getAssertionMessage() {
  * Returns the boolean and hoisted type-check value that `value` is a number
  *
  * @param value value to type-check as a number
- * @param includeNaN flag whether or not to include NaN as a number; defaults to true as NaN is `typeof` number
  */
-export function isNumber(
-  value: unknown,
-  includeNaN: boolean = true
-): value is number {
-  const isNumber = getType(value) === "number";
-  if (includeNaN) {
-    return isNumber;
-  } else {
-    return isNumber && !Number.isNaN(value as number);
-  }
+export function isNumber(value: unknown): value is number {
+  return getType(value) === "number";
 }
 
 /**
@@ -189,13 +180,9 @@ export function assertIsBoolean(
  */
 export function assertIsNumber(
   value: unknown,
-  variableName?: string,
-  includeNaN?: boolean
+  variableName?: string
 ): asserts value is number {
-  assert(
-    isNumber(value, includeNaN),
-    AssertionMessage(value, "number", variableName)
-  );
+  assert(isNumber(value), AssertionMessage(value, "number", variableName));
 }
 
 /**

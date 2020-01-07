@@ -275,16 +275,6 @@ describe("assertIsNumber", () => {
     }
   });
 
-  test("NaN does not throw when includeNaN set to true", () => {
-    shouldNotThrow(() => assertIsNumber(NaN));
-    shouldNotThrow(() => assertIsNumber(NaN, undefined, true));
-    shouldNotThrow(() => assertIsNumber(NaN, "foo", true));
-  });
-
-  test("Nan throws when includeNaN set to false", () => {
-    shouldThrow(() => assertIsNumber(NaN, "foo", false));
-  });
-
   for (const nonNum of testValues.filter(v => getType(v) !== "number")) {
     test(`${getType(nonNum)} throws`, () => {
       shouldThrow(() => assertIsNumber(nonNum));

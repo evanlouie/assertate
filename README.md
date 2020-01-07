@@ -56,9 +56,32 @@ import {
 } from "assertate";
 
 ////////////////////////////////////////////////////////////////////////////////
-// Exception based assertions
+// Control-flow type-predicates
 //------------------------------------------------------------------------------
-// use the `assertIs` and `assert` functions for exception based assertions
+// This feature has been in TypeScript for a while and is the foundation for
+// being able to write type assertions.
+// Using the `is...` functions, we can do type narrowing of using control-flow
+// operators and functions such as `if` and `.filter`
+////////////////////////////////////////////////////////////////////////////////
+const stringA: unknown = "a";
+const stringB: unknown = "b";
+const numberA: unknown = 123;
+
+if (isNumber(numberA)) {
+  // compiler now knows that in this if block, `anotherNumber` is a number
+  const numberAAsFixedPointZero = numberA.toFixed(0);
+}
+
+const stringsAsUpper = [stringA, stringB, numberA]
+  .filter(isString)
+  .map(str => str.toUpperCase()); // compiler knows that is mapping over strings
+
+////////////////////////////////////////////////////////////////////////////////
+// Error/Exception based assertions
+//------------------------------------------------------------------------------
+// Use the `assertIs` and `assert` functions for exception based assertions.
+// These assertions use the `is...` type predicates under the hood and our
+// useful for allowing  based control flows.
 ////////////////////////////////////////////////////////////////////////////////
 try {
   const someUndefinedVar: unknown = undefined;
@@ -71,17 +94,6 @@ const someNumber: unknown = 123.456;
 assertIsNumber(someNumber); // will not throw
 // compiler now knows `someNumber` is a number and has all instance methods that a number has
 const asFixedPointZero = someNumber.toFixed(0);
-
-////////////////////////////////////////////////////////////////////////////////
-// Control-flow based assertions
-//------------------------------------------------------------------------------
-// use the `is` functions for control-flow based assertions
-////////////////////////////////////////////////////////////////////////////////
-const anotherNumber: unknown = 123.123;
-if (isNumber(anotherNumber)) {
-  // compiler now knows that in this if block, `anotherNumber` is a number
-  const anotherNumberAsFixedPointZero = anotherNumber.toFixed(0);
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 // General assertion
@@ -97,7 +109,7 @@ assert(isNumber(someNumberOrString) || isString(someNumberOrString));
 // you can write custom standard type-guards using assert as well
 assert(typeof someNumberOrString === "string");
 // compiler now knows that someNumberOrString is a string
-const someNumberOrStringChars = someNumberOrStringChars.split(",");
+const someNumberOrStringChars = someNumberOrString.split(",");
 
 ////////////////////////////////////////////////////////////////////////////////
 // Set your own assertion messages
