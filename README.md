@@ -74,12 +74,12 @@ if (isNumber(numberA)) {
 
 const stringsAsUpper = [stringA, stringB, numberA]
   .filter(isString)
-  .map(str => str.toUpperCase()); // compiler knows that is mapping over strings
+  .map(str => str.toUpperCase()); // compiler knows that it is mapping over strings
 
 ////////////////////////////////////////////////////////////////////////////////
 // Error/Exception based assertions
 //------------------------------------------------------------------------------
-// Use the `assertIs` and `assert` functions for exception based assertions.
+// Use the `assertIs...` and `assert` functions for exception based assertions.
 // These assertions use the `is...` type predicates under the hood and our
 // useful for allowing  based control flows.
 ////////////////////////////////////////////////////////////////////////////////
