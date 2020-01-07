@@ -2,18 +2,28 @@
 
 > TypeScript 3.7 assertion helper library
 
-## Requirements
-
-| Requirement | Version   |
-| ----------- | --------- |
-| TypeScript  | `>=3.7.0` |
-
-## About
-
 A minimal library exposing basic
 [TypeScript 3.7 assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)
 helpers with the goal of providing the out of the box assertions that most
 people need and have to rewrite for every project.
+
+## Requirements
+
+| Requirement | Version   | Note |
+| ----------- | --------- | ---- |
+| TypeScript  | `>=3.7.0` | \*   |
+| ECMA-262    |           | \*\* |
+
+- \* This library will work both with vanilla JavaScript as well as lower
+  versions of TypeScript. Assertions will throw Errors when the in all
+  environments, however the the TS compiler will only know the narrowed type
+  after an assertion passes in version `>=3.7.0`.
+- \*\* This library offers helpers around
+  [`BigInt`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
+  and
+  [`Symbol`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol).
+  These functions may not work on some browsers which do not yet support those
+  APIs.
 
 ## Installation
 
@@ -31,8 +41,8 @@ npm install assertate
 
 ### The Basics
 
-The library provides the of the box assertions and control flow functions that
-you will need to validate basic data and primitive types.
+The library provides the of the box assertions and control flow type-predicates
+functions that you will need to validate basic data and primitive types.
 
 ```typescript
 import {
@@ -187,7 +197,6 @@ function assertIsMagical(value: unknown): asserts value is Magical {
 
 /**
  * Asserts that `value` is a Wizard
- * @throws {Error} if it is not a valid wizard
  */
 function assertIsWizard(value: unknown): asserts value is Wizard {
   assert(isWizard(value));
@@ -201,10 +210,11 @@ function assertIsWizard(value: unknown): asserts value is Wizard {
 // a REST endpoint or some random JSON file, we would know absolutely nothing.
 // The data retrieved could be a list, an object, a number, a string, anything.
 //
-// With the `assertIsWizard` function we wrote, we can validate that:
+// With the `assertIs...` functions we wrote, we can validate that:
 //  - the data received is in fact an object
 //  - the object has the expected keys
-//  - the values of the keys conform to our expected domain logic
+//  - the values of the keys conform to our expected domain logic for Human,
+//    Magical, and Wizard
 ////////////////////////////////////////////////////////////////////////////////
 // Dr. Strange? He's magic!
 const stephenStrange: unknown = {
@@ -222,10 +232,15 @@ const tonyStark: unknown = {
 
 assertIsHuman(stephenStrange); // no Error thrown
 assertIsHuman(tonyStark); // no Error thrown
-assertIsMagical(stephenStrange); // no Error thrown
-assertIsMagical(tonyStark); // Error thrown
-assertIsWizard(stephenStrange); // no Error thrown
-assertIsWizard(tonyStark); // Error thrown
+// compiler now knows that both people are humans
+for (const person of [stephenStrange, tonyStark]) {
+  try {
+    assertIsMagical(person); // no Error thrown for stephenStrange, Error thrown for tonyStark
+    assertIsWizard(person); // no Error thrown for stephenStrange, code won't be reached for tonyStark
+  } catch (err) {
+    console.error(`${person.name} isn't a wizard :(`); // we can access `person.name` because the compiler knows the person is a human
+  }
+}
 ```
 
 ## API
