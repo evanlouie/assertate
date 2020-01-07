@@ -56,7 +56,7 @@ import {
 } from "assertate";
 
 ////////////////////////////////////////////////////////////////////////////////
-// Control-flow type-predicates
+// Control-flow with type-predicates
 //------------------------------------------------------------------------------
 // This feature has been in TypeScript for a while and is the foundation for
 // being able to write type assertions.
@@ -68,7 +68,7 @@ const stringB: unknown = "b";
 const numberA: unknown = 123;
 
 if (isNumber(numberA)) {
-  // compiler now knows that in this if block, `anotherNumber` is a number
+  // compiler now knows that in this if block, `numberA` is a number
   const numberAAsFixedPointZero = numberA.toFixed(0);
 }
 
@@ -77,11 +77,12 @@ const stringsAsUpper = [stringA, stringB, numberA]
   .map(str => str.toUpperCase()); // compiler knows that it is mapping over strings
 
 ////////////////////////////////////////////////////////////////////////////////
-// Error/Exception based assertions
+// try/catch based assertions with Errors
 //------------------------------------------------------------------------------
-// Use the `assertIs...` and `assert` functions for exception based assertions.
-// These assertions use the `is...` type predicates under the hood and our
-// useful for allowing  based control flows.
+// Use the `assertIs...` and `assert` functions for Error/exception based
+// assertions.
+// These assertions use the `is...` type-predicates under the hood and are
+// useful for allowing try/catch based control flow.
 ////////////////////////////////////////////////////////////////////////////////
 try {
   const someUndefinedVar: unknown = undefined;
@@ -102,11 +103,12 @@ const asFixedPointZero = someNumber.toFixed(0);
 // assertions
 ////////////////////////////////////////////////////////////////////////////////
 const someNumberOrString: unknown = "123";
-// you can compose the `is` assertions using `assert`
-// compiler now knows someNumberOrString is of type `number | string`
-assert(isNumber(someNumberOrString) || isString(someNumberOrString));
 
-// you can write custom standard type-guards using assert as well
+// you can compose the `is` assertions using `assert`
+assert(isNumber(someNumberOrString) || isString(someNumberOrString));
+// compiler now knows someNumberOrString is of type `number | string`
+
+// you can write assertions using standard type-guards using `assert` as well
 assert(typeof someNumberOrString === "string");
 // compiler now knows that someNumberOrString is a string
 const someNumberOrStringChars = someNumberOrString.split(",");
