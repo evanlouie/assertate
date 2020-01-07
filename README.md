@@ -40,7 +40,9 @@ import {
 } from "assertate";
 
 ////////////////////////////////////////////////////////////////////////////////
-// use the `assertIs` functions for exception based assertions
+// Exception based assertions
+//------------------------------------------------------------------------------
+// use the `assertIs` and `assert` functions for exception based assertions
 ////////////////////////////////////////////////////////////////////////////////
 try {
   const someUndefinedVar: unknown = undefined;
@@ -51,9 +53,12 @@ try {
 
 const someNumber: unknown = 123.456;
 assertIsNumber(someNumber); // will not throw
-const asFixedPointZero = someNumber.toFixed(0); // compiler now knows `someNumber` is a number and has all instance methods that a number has
+// compiler now knows `someNumber` is a number and has all instance methods that a number has
+const asFixedPointZero = someNumber.toFixed(0);
 
 ////////////////////////////////////////////////////////////////////////////////
+// Control-flow based assertions
+//------------------------------------------------------------------------------
 // use the `is` functions for control-flow based assertions
 ////////////////////////////////////////////////////////////////////////////////
 const anotherNumber: unknown = 123.123;
@@ -64,25 +69,36 @@ if (isNumber(anotherNumber)) {
 
 ////////////////////////////////////////////////////////////////////////////////
 // General assertion
-// - use the `assert` function if you need to compose more custom assertions
+//------------------------------------------------------------------------------
+// use the `assert` function if you need to write or compose more custom
+// assertions
 ////////////////////////////////////////////////////////////////////////////////
 const someNumberOrString: unknown = "123";
-assert(isNumber(someNumberOrString) || isString(someNumberOrString)); // compiler now knows someNumberOrString is of type `number | string`
+// you can compose the `is` assertions using `assert`
+// compiler now knows someNumberOrString is of type `number | string`
+assert(isNumber(someNumberOrString) || isString(someNumberOrString));
+
+// you can write custom standard type-guards using assert as well
+assert(typeof someNumberOrString === "string");
+// compiler now knows that someNumberOrString is a string
+const someNumberOrStringChars = someNumberOrStringChars.split(",");
 
 ////////////////////////////////////////////////////////////////////////////////
 // Set your own assertion messages
-// - a default assertion message is provided; will most likely be good enough for most cases
+//------------------------------------------------------------------------------
+// A default assertion message is provided; will most likely be good enough for
+// most cases
 ////////////////////////////////////////////////////////////////////////////////
 const defaultAssertionMessage = getAssertionMessage();
 setAssertionMessage(
   (someValue, expectedType) =>
-    `Expected a ${expectedType}, got a ${getType(someValue)}`
+    `Im your message! Expected a ${expectedType}, got a ${getType(someValue)}`
 );
 try {
   const aNumber: unknown = 123;
   assertIsString(aNumber);
 } catch (err) {
-  console.log(err); // An error with message 'Expected a string, got a number' will be logged
+  console.log(err); // An error with message 'Im your message! Expected a string, got a number' will be logged
 }
 ```
 
