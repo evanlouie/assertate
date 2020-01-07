@@ -1,9 +1,10 @@
 {
   "name": "assertate",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "TypeScript assertion helpers",
   "keywords": [
     "TypeScript",
+    "JavaScript",
     "3.7",
     "assertion",
     "isomorphic",
