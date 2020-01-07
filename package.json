@@ -5,7 +5,10 @@
   "keywords": [
     "TypeScript",
     "3.7",
-    "assertion"
+    "assertion",
+    "isomorphic",
+    "client",
+    "server"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,11 +21,11 @@
     "test-watch": "jest --watchAll"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.22",
-    "@types/node": "^12.12.7",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.4",
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
-    "ts-jest": "^24.1.0",
-    "typescript": "^3.7.2"
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.4"
   }
 }

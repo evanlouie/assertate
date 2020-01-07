@@ -6,17 +6,14 @@
 
 /**
  * Returns a refined type of an object. Defaults to `typeof` unless the value is
- * an array or null, in which case 'array' or 'null' is returned
+ * null, in which case 'null' is returned
  *
  * @param value value to get the type of
  */
-function getType(value: any): string {
+export function getType(value: unknown) {
   const type = typeof value;
   if (type !== "object") {
     return type;
-  }
-  if (Array.isArray(value)) {
-    return "array";
   }
   if (value === null) {
     return "null";
@@ -25,6 +22,12 @@ function getType(value: any): string {
   return type;
 }
 
+type AssertionMessageType = (
+  value: unknown,
+  type: string,
+  variableName?: string
+) => string;
+
 /**
  * Generates an type assertion message for the given `value`
  *
@@ -32,15 +35,110 @@ function getType(value: any): string {
  * @param type the expected value as a string; eg 'string', 'boolean', 'number'
  * @param variableName the name of the variable being type-checked
  */
-function AssertionMessage(
-  value: string,
-  type: string,
-  variableName?: string
-): string {
+let AssertionMessage: AssertionMessageType = (
+  value,
+  type,
+  variableName?
+): string => {
   const message = variableName
-    ? `${variableName} must be of type '${type}', ${getType(value)} provided`
+    ? `${variableName} must be of type '${type}', '${getType(value)}' provided`
     : `expected value of type '${type}', '${getType(value)}' provided`;
   return message;
+};
+
+export function setAssertionMessage(message: AssertionMessageType) {
+  AssertionMessage = message;
+}
+
+/**
+ * Returns the boolean and hoisted type-check value that `value` is a number
+ *
+ * @param value value to type-check as a number
+ * @param includeNaN flag whether or not to include NaN as a number; defaults to true as NaN is `typeof` number
+ */
+export function isNumber(
+  value: unknown,
+  includeNaN: boolean = true
+): value is number {
+  const isNumber = getType(value) === "number";
+  if (includeNaN) {
+    return isNumber;
+  } else {
+    return isNumber && !Number.isNaN(value as number);
+  }
+}
+
+/**
+ * Returns the boolean and hoisted type-check value that `value` is a bigint
+ *
+ * @param value value to type-check as a bigint
+ */
+export function isBigInt(value: unknown): value is bigint {
+  return getType(value) === "bigint";
+}
+
+/**
+ * Returns the boolean and hoisted type-check value that `value` is a boolean
+ *
+ * @param value value to type-check as a boolean
+ */
+export function isBoolean(value: unknown): value is boolean {
+  return getType(value) === "boolean";
+}
+
+/**
+ * Returns the boolean and hoisted type-check value that `value` is a string
+ *
+ * @param value value to type-check as a string
+ */
+export function isString(value: unknown): value is string {
+  return getType(value) === "string";
+}
+
+/**
+ * Returns the boolean and hoisted type-check value that `value` is an array
+ *
+ * @param value value to type-check as an array
+ */
+export function isArray(value: unknown): value is unknown[] {
+  return Array.isArray(value);
+}
+
+/**
+ * Returns the boolean and hoisted type-check value that `value` is an object.
+ * null is not considered an 'object'.
+ *
+ * @param value value to type-check as an object
+ */
+export function isObject(value: unknown): value is object {
+  return getType(value) === "object";
+}
+
+/**
+ * Returns the boolean and hoisted type-check value that `value` is undefined
+ *
+ * @param value value to type-check as undefined
+ */
+export function isUndefined(value: unknown): value is undefined {
+  return getType(value) === "undefined";
+}
+
+/**
+ * Returns the boolean and hoisted type-check value that `value` is null
+ *
+ * @param value value to type-check as null
+ */
+export function isNull(value: unknown): value is null {
+  return getType(value) === "null";
+}
+
+/**
+ * Returns the boolean and hoisted type-check value that `value` is a symbol
+ *
+ * @param value value to type-check as a symbol
+ */
+export function isSymbol(value: unknown): value is symbol {
+  return getType(value) === "symbol";
 }
 
 /**
@@ -51,13 +149,10 @@ function AssertionMessage(
  * @throws {Error}
  */
 export function assertIsString(
-  value: any,
+  value: unknown,
   variableName?: string
 ): asserts value is string {
-  assert(
-    typeof value === "string",
-    AssertionMessage(value, "string", variableName)
-  );
+  assert(isString(value), AssertionMessage(value, "string", variableName));
 }
 
 /**
@@ -69,13 +164,10 @@ export function assertIsString(
  * @throws {Error}
  */
 export function assertIsBoolean(
-  value: any,
+  value: unknown,
   variableName?: string
 ): asserts value is boolean {
-  assert(
-    typeof value === "boolean",
-    AssertionMessage(value, "boolean", variableName)
-  );
+  assert(isBoolean(value), AssertionMessage(value, "boolean", variableName));
 }
 
 /**
@@ -86,13 +178,28 @@ export function assertIsBoolean(
  * @throws {Error}
  */
 export function assertIsNumber(
-  value: any,
-  variableName?: string
+  value: unknown,
+  variableName?: string,
+  includeNaN?: boolean
 ): asserts value is number {
   assert(
-    typeof value === "number" && !isNaN(value),
+    isNumber(value, includeNaN),
     AssertionMessage(value, "number", variableName)
   );
+}
+
+/**
+ * Type-checks the provided 'value' to be a bigint, throws an Error if it is not
+ *
+ * @param value the value to type-check as a bigint
+ * @param variableName the name of the variable to be type-checked
+ * @throws {Error}
+ */
+export function assertIsBigInt(
+  value: unknown,
+  variableName?: string
+): asserts value is bigint {
+  assert(isBigInt(value), AssertionMessage(value, "bigint", variableName));
 }
 
 /**
@@ -103,10 +210,10 @@ export function assertIsNumber(
  * @throws {Error}
  */
 export function assertIsArray<T>(
-  value: any,
+  value: unknown,
   variableName?: string
 ): asserts value is T[] {
-  assert(Array.isArray(value), AssertionMessage(value, "array", variableName));
+  assert(isArray(value), AssertionMessage(value, "array", variableName));
 }
 
 /**
@@ -117,10 +224,39 @@ export function assertIsArray<T>(
  * @throws {Error}
  */
 export function assertIsNull(
-  value: any,
+  value: unknown,
   variableName?: string
 ): asserts value is null {
-  assert(value === null, AssertionMessage(value, "null", variableName));
+  assert(isNull(value), AssertionMessage(value, "null", variableName));
+}
+
+/**
+ * Type-checks the provided `value` to be an object, throws an Error if it is
+ * not
+ *
+ * @param value the value to type-check as an object
+ * @param variableName the name of the variable to be type-checked
+ * @throws {Error}
+ */
+export function assertIsObject(
+  value: unknown,
+  variableName?: string
+): asserts value is object {
+  assert(isObject(value), AssertionMessage(value, "object", variableName));
+}
+
+/**
+ * Type-checks the provided `value` to be a symbol, throws an Error if it is not
+ *
+ * @param value the value to type-check as a symbol
+ * @param variableName the name of the variable to be type-checked
+ * @throws {Error}
+ */
+export function assertIsSymbol(
+  value: unknown,
+  variableName?: string
+): asserts value is symbol {
+  assert(isSymbol(value), AssertionMessage(value, "symbol", variableName));
 }
 
 /**
@@ -132,11 +268,11 @@ export function assertIsNull(
  * @throws {Error}
  */
 export function assertIsUndefined(
-  value: any,
+  value: unknown,
   variableName?: string
 ): asserts value is undefined {
   assert(
-    typeof value === "undefined",
+    isUndefined(value),
     AssertionMessage(value, "undefined", variableName)
   );
 }
@@ -148,7 +284,10 @@ export function assertIsUndefined(
  * @param condition the condition to be asserted
  * @throws {Error}
  */
-export function assert(condition: any, message?: string): asserts condition {
+export function assert(
+  condition: unknown,
+  message?: string
+): asserts condition {
   if (!condition) {
     throw Error(message);
   }
