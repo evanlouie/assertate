@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>assertate - v2.3.1</title>
+	<title>assertate - v2.3.2</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">assertate - v2.3.1</a>
+					<a href="index.html" class="title">assertate - v2.3.2</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> assertate - v2.3.1</h1>
+			<h1> assertate - v2.3.2</h1>
 		</div>
 	</div>
 </header>
@@ -133,7 +133,7 @@
 } <span class="hljs-keyword">from</span> <span class="hljs-string">"assertate"</span>;
 
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// Control-flow type-predicates</span>
+<span class="hljs-comment">// Control-flow with type-predicates</span>
 <span class="hljs-comment">//------------------------------------------------------------------------------</span>
 <span class="hljs-comment">// This feature has been in TypeScript for a while and is the foundation for</span>
 <span class="hljs-comment">// being able to write type assertions.</span>
@@ -145,7 +145,7 @@
 <span class="hljs-keyword">const</span> numberA: unknown = <span class="hljs-number">123</span>;
 
 <span class="hljs-keyword">if</span> (isNumber(numberA)) {
-  <span class="hljs-comment">// compiler now knows that in this if block, `anotherNumber` is a number</span>
+  <span class="hljs-comment">// compiler now knows that in this if block, `numberA` is a number</span>
   <span class="hljs-keyword">const</span> numberAAsFixedPointZero = numberA.toFixed(<span class="hljs-number">0</span>);
 }
 
@@ -154,11 +154,12 @@
   .map(<span class="hljs-function"><span class="hljs-params">str</span> =&gt;</span> str.toUpperCase()); <span class="hljs-comment">// compiler knows that it is mapping over strings</span>
 
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// Error/Exception based assertions</span>
+<span class="hljs-comment">// try/catch based assertions with Errors</span>
 <span class="hljs-comment">//------------------------------------------------------------------------------</span>
-<span class="hljs-comment">// Use the `assertIs...` and `assert` functions for exception based assertions.</span>
-<span class="hljs-comment">// These assertions use the `is...` type predicates under the hood and our</span>
-<span class="hljs-comment">// useful for allowing  based control flows.</span>
+<span class="hljs-comment">// Use the `assertIs...` and `assert` functions for Error/exception based</span>
+<span class="hljs-comment">// assertions.</span>
+<span class="hljs-comment">// These assertions use the `is...` type-predicates under the hood and are</span>
+<span class="hljs-comment">// useful for allowing try/catch based control flow.</span>
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
 <span class="hljs-keyword">try</span> {
   <span class="hljs-keyword">const</span> someUndefinedVar: unknown = <span class="hljs-literal">undefined</span>;
@@ -179,11 +180,12 @@ assertIsNumber(someNumber); <span class="hljs-comment">// will not throw</span>
 <span class="hljs-comment">// assertions</span>
 <span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
 <span class="hljs-keyword">const</span> someNumberOrString: unknown = <span class="hljs-string">"123"</span>;
-<span class="hljs-comment">// you can compose the `is` assertions using `assert`</span>
-<span class="hljs-comment">// compiler now knows someNumberOrString is of type `number | string`</span>
-assert(isNumber(someNumberOrString) || isString(someNumberOrString));
 
-<span class="hljs-comment">// you can write custom standard type-guards using assert as well</span>
+<span class="hljs-comment">// you can compose the `is` assertions using `assert`</span>
+assert(isNumber(someNumberOrString) || isString(someNumberOrString));
+<span class="hljs-comment">// compiler now knows someNumberOrString is of type `number | string`</span>
+
+<span class="hljs-comment">// you can write assertions using standard type-guards using `assert` as well</span>
 assert(<span class="hljs-keyword">typeof</span> someNumberOrString === <span class="hljs-string">"string"</span>);
 <span class="hljs-comment">// compiler now knows that someNumberOrString is a string</span>
 <span class="hljs-keyword">const</span> someNumberOrStringChars = someNumberOrString.split(<span class="hljs-string">","</span>);
