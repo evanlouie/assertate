@@ -18,7 +18,8 @@ export function getType(value: unknown) {
 export type AssertionMessageType = (
   value: unknown,
   type: string,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string
 ) => string;
 
 /**
@@ -27,17 +28,19 @@ export type AssertionMessageType = (
  * @param value value being type-checked
  * @param type the expected value as a string; eg 'string', 'boolean', 'number'
  * @param variableName the name of the variable being type-checked
+ * @param additionalMessage further information on failure
  */
 let AssertionMessage: AssertionMessageType = (
   value,
   type,
-  variableName?
+  variableName?,
+  additionalMessage?
 ): string => {
-  const message = variableName
+  let message = variableName
     ? `${variableName} must be of type '${type}', '${getType(value)}' provided`
     : `expected value of type '${type}', '${getType(value)}' provided`;
-  return message;
-};
+    return additionalMessage ? `${message}: ${additionalMessage}`: message
+  };
 
 /**
  * Sets the global AssertionMessage with the `message` provided
@@ -113,6 +116,15 @@ export function isObject<T extends { [key: string]: unknown }>(
 }
 
 /**
+ * Returns the boolean and hoisted type-check value that `value` is not undefined (NonNullable)
+ *
+ * @param value value to type-check as NonNullable
+ */
+export function isDefined(value: unknown): value is NonNullable<any> {
+  return !(value === undefined || value === null);
+}
+
+/**
  * Returns the boolean and hoisted type-check value that `value` is undefined
  *
  * @param value value to type-check as undefined
@@ -144,13 +156,15 @@ export function isSymbol(value: unknown): value is symbol {
  *
  * @param value the value to type-check as a string
  * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
  * @throws {Error}
  */
 export function assertIsString(
   value: unknown,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string
 ): asserts value is string {
-  assert(isString(value), AssertionMessage(value, "string", variableName));
+  assert(isString(value), AssertionMessage(value, "string", variableName, additionalMessage));
 }
 
 /**
@@ -159,13 +173,15 @@ export function assertIsString(
  *
  * @param value the value to type-check as a boolean
  * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
  * @throws {Error}
  */
 export function assertIsBoolean(
   value: unknown,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string,
 ): asserts value is boolean {
-  assert(isBoolean(value), AssertionMessage(value, "boolean", variableName));
+  assert(isBoolean(value), AssertionMessage(value, "boolean", variableName, additionalMessage));
 }
 
 /**
@@ -173,13 +189,15 @@ export function assertIsBoolean(
  *
  * @param value the value to type-check as a number
  * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
  * @throws {Error}
  */
 export function assertIsNumber(
   value: unknown,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string
 ): asserts value is number {
-  assert(isNumber(value), AssertionMessage(value, "number", variableName));
+  assert(isNumber(value), AssertionMessage(value, "number", variableName, additionalMessage));
 }
 
 /**
@@ -187,13 +205,15 @@ export function assertIsNumber(
  *
  * @param value the value to type-check as a bigint
  * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
  * @throws {Error}
  */
 export function assertIsBigInt(
   value: unknown,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string
 ): asserts value is bigint {
-  assert(isBigInt(value), AssertionMessage(value, "bigint", variableName));
+  assert(isBigInt(value), AssertionMessage(value, "bigint", variableName, additionalMessage));
 }
 
 /**
@@ -201,13 +221,15 @@ export function assertIsBigInt(
  *
  * @param value the value to type-check as an array
  * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
  * @throws {Error}
  */
 export function assertIsArray<T>(
   value: unknown,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string
 ): asserts value is T[] {
-  assert(isArray(value), AssertionMessage(value, "array", variableName));
+  assert(isArray(value), AssertionMessage(value, "array", variableName, additionalMessage));
 }
 
 /**
@@ -215,13 +237,15 @@ export function assertIsArray<T>(
  *
  * @param value the value to type-check as null
  * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
  * @throws {Error}
  */
 export function assertIsNull(
   value: unknown,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string
 ): asserts value is null {
-  assert(isNull(value), AssertionMessage(value, "null", variableName));
+  assert(isNull(value), AssertionMessage(value, "null", variableName, additionalMessage));
 }
 
 /**
@@ -230,13 +254,15 @@ export function assertIsNull(
  *
  * @param value the value to type-check as an object
  * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
  * @throws {Error}
  */
 export function assertIsObject(
   value: unknown,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string
 ): asserts value is object {
-  assert(isObject(value), AssertionMessage(value, "object", variableName));
+  assert(isObject(value), AssertionMessage(value, "object", variableName, additionalMessage));
 }
 
 /**
@@ -244,13 +270,15 @@ export function assertIsObject(
  *
  * @param value the value to type-check as a symbol
  * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
  * @throws {Error}
  */
 export function assertIsSymbol(
   value: unknown,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string
 ): asserts value is symbol {
-  assert(isSymbol(value), AssertionMessage(value, "symbol", variableName));
+  assert(isSymbol(value), AssertionMessage(value, "symbol", variableName, additionalMessage));
 }
 
 /**
@@ -259,18 +287,30 @@ export function assertIsSymbol(
  *
  * @param value the value to type-check as undefined
  * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
  * @throws {Error}
  */
 export function assertIsUndefined(
   value: unknown,
-  variableName?: string
+  variableName?: string,
+  additionalMessage?: string
 ): asserts value is undefined {
   assert(
     isUndefined(value),
-    AssertionMessage(value, "undefined", variableName)
+    AssertionMessage(value, "undefined", variableName, additionalMessage)
   );
 }
 
+export function assertIsDefined(
+  value: unknown,
+  variableName?: string,
+  additionalMessage?: string
+): asserts value is NonNullable<any> {
+    assert(
+      isDefined(value),
+      AssertionMessage(value, "defined", variableName, additionalMessage)
+    );
+  }
 /**
  * General assertion helper. Asserts the provided `condition` is met, if it is
  * not, throws an Error with the provided `message`
