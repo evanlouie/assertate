@@ -39,8 +39,8 @@ let AssertionMessage: AssertionMessageType = (
   let message = variableName
     ? `${variableName} must be of type '${type}', '${getType(value)}' provided`
     : `expected value of type '${type}', '${getType(value)}' provided`;
-    return additionalMessage ? `${message}: ${additionalMessage}`: message
-  };
+  return additionalMessage ? `${message}: ${additionalMessage}` : message;
+};
 
 /**
  * Sets the global AssertionMessage with the `message` provided
@@ -139,7 +139,7 @@ export function isUndefined(value: unknown): value is undefined {
  * @param value value to type-check as undefined
  */
 export function isNotUndefined(value: unknown): value is undefined {
-  return getType(value) !== 'undefined'
+  return getType(value) !== "undefined";
 }
 
 /**
@@ -173,7 +173,10 @@ export function assertIsString(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is string {
-  assert(isString(value), AssertionMessage(value, "string", variableName, additionalMessage));
+  assert(
+    isString(value),
+    AssertionMessage(value, "string", variableName, additionalMessage)
+  );
 }
 
 /**
@@ -188,9 +191,12 @@ export function assertIsString(
 export function assertIsBoolean(
   value: unknown,
   variableName?: string,
-  additionalMessage?: string,
+  additionalMessage?: string
 ): asserts value is boolean {
-  assert(isBoolean(value), AssertionMessage(value, "boolean", variableName, additionalMessage));
+  assert(
+    isBoolean(value),
+    AssertionMessage(value, "boolean", variableName, additionalMessage)
+  );
 }
 
 /**
@@ -206,7 +212,10 @@ export function assertIsNumber(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is number {
-  assert(isNumber(value), AssertionMessage(value, "number", variableName, additionalMessage));
+  assert(
+    isNumber(value),
+    AssertionMessage(value, "number", variableName, additionalMessage)
+  );
 }
 
 /**
@@ -222,7 +231,10 @@ export function assertIsBigInt(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is bigint {
-  assert(isBigInt(value), AssertionMessage(value, "bigint", variableName, additionalMessage));
+  assert(
+    isBigInt(value),
+    AssertionMessage(value, "bigint", variableName, additionalMessage)
+  );
 }
 
 /**
@@ -238,7 +250,10 @@ export function assertIsArray<T>(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is T[] {
-  assert(isArray(value), AssertionMessage(value, "array", variableName, additionalMessage));
+  assert(
+    isArray(value),
+    AssertionMessage(value, "array", variableName, additionalMessage)
+  );
 }
 
 /**
@@ -254,7 +269,10 @@ export function assertIsNull(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is null {
-  assert(isNull(value), AssertionMessage(value, "null", variableName, additionalMessage));
+  assert(
+    isNull(value),
+    AssertionMessage(value, "null", variableName, additionalMessage)
+  );
 }
 
 /**
@@ -271,7 +289,10 @@ export function assertIsObject(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is object {
-  assert(isObject(value), AssertionMessage(value, "object", variableName, additionalMessage));
+  assert(
+    isObject(value),
+    AssertionMessage(value, "object", variableName, additionalMessage)
+  );
 }
 
 /**
@@ -287,7 +308,10 @@ export function assertIsSymbol(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is symbol {
-  assert(isSymbol(value), AssertionMessage(value, "symbol", variableName, additionalMessage));
+  assert(
+    isSymbol(value),
+    AssertionMessage(value, "symbol", variableName, additionalMessage)
+  );
 }
 
 /**
@@ -304,7 +328,10 @@ export function assertIsUndefined(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is undefined {
-  assert(isUndefined(value), AssertionMessage(value, 'undefined', variableName, additionalMessage))
+  assert(
+    isUndefined(value),
+    AssertionMessage(value, "undefined", variableName, additionalMessage)
+  );
 }
 
 /**
@@ -321,19 +348,30 @@ export function assertIsNotUndefined(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is undefined {
-  assert(isNotUndefined(value), AssertionMessage(value, 'not undefined', variableName, additionalMessage))
+  assert(
+    isNotUndefined(value),
+    AssertionMessage(value, "not undefined", variableName, additionalMessage)
+  );
 }
 
+/**
+ * Type-checks the provided `value` to be defined. throws and Error if it is not
+ *
+ * @param value the value to type-check as as defined
+ * @param variableName teh name of the variable to be type-checked
+ * @param additionalMessage  further information on failure
+ * @throws {Error}
+ */
 export function assertIsDefined(
   value: unknown,
   variableName?: string,
   additionalMessage?: string
 ): asserts value is NonNullable<any> {
-    assert(
-      isDefined(value),
-      AssertionMessage(value, "defined", variableName, additionalMessage)
-    );
-  }
+  assert(
+    isDefined(value),
+    AssertionMessage(value, "defined", variableName, additionalMessage)
+  );
+}
 /**
  * General assertion helper. Asserts the provided `condition` is met, if it is
  * not, throws an Error with the provided `message`
