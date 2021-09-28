@@ -134,6 +134,15 @@ export function isUndefined(value: unknown): value is undefined {
 }
 
 /**
+ * Returns the boolean and hoisted type-check value that `value` is undefined
+ *
+ * @param value value to type-check as undefined
+ */
+export function isNotUndefined(value: unknown): value is undefined {
+  return getType(value) !== 'undefined'
+}
+
+/**
  * Returns the boolean and hoisted type-check value that `value` is null
  *
  * @param value value to type-check as null
@@ -295,10 +304,24 @@ export function assertIsUndefined(
   variableName?: string,
   additionalMessage?: string
 ): asserts value is undefined {
-  assert(
-    isUndefined(value),
-    AssertionMessage(value, "undefined", variableName, additionalMessage)
-  );
+  assert(isUndefined(value), AssertionMessage(value, 'undefined', variableName, additionalMessage))
+}
+
+/**
+ * Type-checks the provided `value` to be not undefined, throws an Error if it is
+ * not
+ *
+ * @param value the value to type-check as undefined
+ * @param variableName the name of the variable to be type-checked
+ * @param additionalMessage further information on failure
+ * @throws {Error}
+ */
+export function assertIsNotUndefined(
+  value: unknown,
+  variableName?: string,
+  additionalMessage?: string
+): asserts value is undefined {
+  assert(isNotUndefined(value), AssertionMessage(value, 'not undefined', variableName, additionalMessage))
 }
 
 export function assertIsDefined(

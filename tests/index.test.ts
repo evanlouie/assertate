@@ -9,6 +9,7 @@ import {
   assertIsString,
   assertIsSymbol,
   assertIsUndefined,
+  assertIsNotUndefined,
   getAssertionMessage,
   getType,
   isArray,
@@ -20,6 +21,7 @@ import {
   isString,
   isSymbol,
   isUndefined,
+  isNotUndefined,
   setAssertionMessage
 } from "../src/index";
 
@@ -212,6 +214,21 @@ describe("isUndefined", () => {
   test("defined fail", () => {
     for (const defined of testValues.filter(v => getType(v) !== "undefined")) {
       expect(isUndefined(defined)).toBe(false);
+    }
+  });
+});
+
+
+describe("isNotUndefined", () => {
+  test("defined pass", () => {
+    for (const defined of testValues.filter(v => getType(v) !== "undefined")) {
+      expect(isNotUndefined(defined)).toBe(true);
+    }
+  });
+
+  test("undefined fail", () => {
+    for (const undef of undefinedList) {
+      expect(isNotUndefined(undef)).toBe(false);
     }
   });
 });
