@@ -7,6 +7,7 @@
 	<meta name="description" content="Documentation for assertate">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -40,8 +41,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -51,11 +50,6 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
 			<h1>assertate</h1>
 		</div>
 	</div>
@@ -111,9 +105,11 @@
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
-				<pre><code class="language-sh">yarn add assertate</code></pre>
+				<pre><code class="language-sh"><span style="color: #000000">yarn add assertate</span>
+</code></pre>
 				<p>Or</p>
-				<pre><code class="language-sh">npm install assertate</code></pre>
+				<pre><code class="language-sh"><span style="color: #000000">npm install assertate</span>
+</code></pre>
 				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
 					<h2>Examples</h2>
 				</a>
@@ -122,91 +118,92 @@
 				</a>
 				<p>The library provides the of the box assertions and control flow type-predicates
 				functions that you will need to validate basic data and primitive types.</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> {
-  assert,
-  assertIsNumber,
-  getAssertionMessage,
-  getType,
-  isNumber,
-  isString,
-  setAssertionMessage
-} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;assertate&quot;</span>;
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">assert</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">assertIsNumber</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">getAssertionMessage</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">getType</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">isNumber</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">isString</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">setAssertionMessage</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;assertate&quot;</span><span style="color: #000000">;</span>
 
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// Control-flow with type-predicates</span>
-<span class="hljs-comment">//------------------------------------------------------------------------------</span>
-<span class="hljs-comment">// This feature has been in TypeScript for a while and is the foundation for</span>
-<span class="hljs-comment">// being able to write type assertions.</span>
-<span class="hljs-comment">// Using the `is...` functions, we can do type narrowing of using control-flow</span>
-<span class="hljs-comment">// operators and functions such as `if` and `.filter`</span>
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-keyword">const</span> stringA: unknown = <span class="hljs-string">&quot;a&quot;</span>;
-<span class="hljs-keyword">const</span> stringB: unknown = <span class="hljs-string">&quot;b&quot;</span>;
-<span class="hljs-keyword">const</span> numberA: unknown = <span class="hljs-number">123</span>;
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">// Control-flow with type-predicates</span>
+<span style="color: #008000">//------------------------------------------------------------------------------</span>
+<span style="color: #008000">// This feature has been in TypeScript for a while and is the foundation for</span>
+<span style="color: #008000">// being able to write type assertions.</span>
+<span style="color: #008000">// Using the `is...` functions, we can do type narrowing of using control-flow</span>
+<span style="color: #008000">// operators and functions such as `if` and `.filter`</span>
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">stringA</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000"> = </span><span style="color: #A31515">&quot;a&quot;</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">stringB</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000"> = </span><span style="color: #A31515">&quot;b&quot;</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">numberA</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000"> = </span><span style="color: #098658">123</span><span style="color: #000000">;</span>
 
-<span class="hljs-keyword">if</span> (isNumber(numberA)) {
-  <span class="hljs-comment">// compiler now knows that in this if block, `numberA` is a number</span>
-  <span class="hljs-keyword">const</span> numberAAsFixedPointZero = numberA.toFixed(<span class="hljs-number">0</span>);
-}
+<span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #795E26">isNumber</span><span style="color: #000000">(</span><span style="color: #001080">numberA</span><span style="color: #000000">)) {</span>
+<span style="color: #000000">  </span><span style="color: #008000">// compiler now knows that in this if block, `numberA` is a number</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">numberAAsFixedPointZero</span><span style="color: #000000"> = </span><span style="color: #001080">numberA</span><span style="color: #000000">.</span><span style="color: #795E26">toFixed</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-keyword">const</span> stringsAsUpper = [stringA, stringB, numberA]
-  .filter(isString)
-  .map(<span class="hljs-function"><span class="hljs-params">str</span> =&gt;</span> str.toUpperCase()); <span class="hljs-comment">// compiler knows that it is mapping over strings</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">stringsAsUpper</span><span style="color: #000000"> = [</span><span style="color: #001080">stringA</span><span style="color: #000000">, </span><span style="color: #001080">stringB</span><span style="color: #000000">, </span><span style="color: #001080">numberA</span><span style="color: #000000">]</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">filter</span><span style="color: #000000">(</span><span style="color: #001080">isString</span><span style="color: #000000">)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">map</span><span style="color: #000000">(</span><span style="color: #001080">str</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">str</span><span style="color: #000000">.</span><span style="color: #795E26">toUpperCase</span><span style="color: #000000">()); </span><span style="color: #008000">// compiler knows that it is mapping over strings</span>
 
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// try/catch based assertions with Errors</span>
-<span class="hljs-comment">//------------------------------------------------------------------------------</span>
-<span class="hljs-comment">// Use the `assertIs...` and `assert` functions for Error/exception based</span>
-<span class="hljs-comment">// assertions.</span>
-<span class="hljs-comment">// These assertions use the `is...` type-predicates under the hood and are</span>
-<span class="hljs-comment">// useful for allowing try/catch based control flow.</span>
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-keyword">try</span> {
-  <span class="hljs-keyword">const</span> someUndefinedVar: unknown = <span class="hljs-literal">undefined</span>;
-  assertIsNumber(someUndefinedVar); <span class="hljs-comment">// will throw an Error</span>
-} <span class="hljs-keyword">catch</span> (err) {
-  <span class="hljs-built_in">console</span>.error(err); <span class="hljs-comment">// An assertion Error will be logged</span>
-}
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">// try/catch based assertions with Errors</span>
+<span style="color: #008000">//------------------------------------------------------------------------------</span>
+<span style="color: #008000">// Use the `assertIs...` and `assert` functions for Error/exception based</span>
+<span style="color: #008000">// assertions.</span>
+<span style="color: #008000">// These assertions use the `is...` type-predicates under the hood and are</span>
+<span style="color: #008000">// useful for allowing try/catch based control flow.</span>
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #AF00DB">try</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">someUndefinedVar</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000"> = </span><span style="color: #0000FF">undefined</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #795E26">assertIsNumber</span><span style="color: #000000">(</span><span style="color: #001080">someUndefinedVar</span><span style="color: #000000">); </span><span style="color: #008000">// will throw an Error</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">); </span><span style="color: #008000">// An assertion Error will be logged</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-keyword">const</span> someNumber: unknown = <span class="hljs-number">123.456</span>;
-assertIsNumber(someNumber); <span class="hljs-comment">// will not throw</span>
-<span class="hljs-comment">// compiler now knows `someNumber` is a number and has all instance methods that a number has</span>
-<span class="hljs-keyword">const</span> asFixedPointZero = someNumber.toFixed(<span class="hljs-number">0</span>);
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">someNumber</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000"> = </span><span style="color: #098658">123.456</span><span style="color: #000000">;</span>
+<span style="color: #795E26">assertIsNumber</span><span style="color: #000000">(</span><span style="color: #001080">someNumber</span><span style="color: #000000">); </span><span style="color: #008000">// will not throw</span>
+<span style="color: #008000">// compiler now knows `someNumber` is a number and has all instance methods that a number has</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">asFixedPointZero</span><span style="color: #000000"> = </span><span style="color: #001080">someNumber</span><span style="color: #000000">.</span><span style="color: #795E26">toFixed</span><span style="color: #000000">(</span><span style="color: #098658">0</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// General assertion</span>
-<span class="hljs-comment">//------------------------------------------------------------------------------</span>
-<span class="hljs-comment">// use the `assert` function if you need to write or compose more custom</span>
-<span class="hljs-comment">// assertions</span>
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-keyword">const</span> someNumberOrString: unknown = <span class="hljs-string">&quot;123&quot;</span>;
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">// General assertion</span>
+<span style="color: #008000">//------------------------------------------------------------------------------</span>
+<span style="color: #008000">// use the `assert` function if you need to write or compose more custom</span>
+<span style="color: #008000">// assertions</span>
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">someNumberOrString</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000"> = </span><span style="color: #A31515">&quot;123&quot;</span><span style="color: #000000">;</span>
 
-<span class="hljs-comment">// you can compose the `is` assertions using `assert`</span>
-assert(isNumber(someNumberOrString) || isString(someNumberOrString));
-<span class="hljs-comment">// compiler now knows someNumberOrString is of type `number | string`</span>
+<span style="color: #008000">// you can compose the `is` assertions using `assert`</span>
+<span style="color: #795E26">assert</span><span style="color: #000000">(</span><span style="color: #795E26">isNumber</span><span style="color: #000000">(</span><span style="color: #001080">someNumberOrString</span><span style="color: #000000">) || </span><span style="color: #795E26">isString</span><span style="color: #000000">(</span><span style="color: #001080">someNumberOrString</span><span style="color: #000000">));</span>
+<span style="color: #008000">// compiler now knows someNumberOrString is of type `number | string`</span>
 
-<span class="hljs-comment">// you can write assertions using standard type-guards using `assert` as well</span>
-assert(<span class="hljs-keyword">typeof</span> someNumberOrString === <span class="hljs-string">&quot;string&quot;</span>);
-<span class="hljs-comment">// compiler now knows that someNumberOrString is a string</span>
-<span class="hljs-keyword">const</span> someNumberOrStringChars = someNumberOrString.split(<span class="hljs-string">&quot;,&quot;</span>);
+<span style="color: #008000">// you can write assertions using standard type-guards using `assert` as well</span>
+<span style="color: #795E26">assert</span><span style="color: #000000">(</span><span style="color: #0000FF">typeof</span><span style="color: #000000"> </span><span style="color: #001080">someNumberOrString</span><span style="color: #000000"> === </span><span style="color: #A31515">&quot;string&quot;</span><span style="color: #000000">);</span>
+<span style="color: #008000">// compiler now knows that someNumberOrString is a string</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">someNumberOrStringChars</span><span style="color: #000000"> = </span><span style="color: #001080">someNumberOrString</span><span style="color: #000000">.</span><span style="color: #795E26">split</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;,&quot;</span><span style="color: #000000">);</span>
 
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// Set your own assertion messages</span>
-<span class="hljs-comment">//------------------------------------------------------------------------------</span>
-<span class="hljs-comment">// A default assertion message is provided; will most likely be good enough for</span>
-<span class="hljs-comment">// most cases</span>
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-keyword">const</span> defaultAssertionMessage = getAssertionMessage();
-setAssertionMessage(
-  <span class="hljs-function">(<span class="hljs-params">someValue, expectedType</span>) =&gt;</span>
-    <span class="hljs-string">`Im your message! Expected a <span class="hljs-subst">${expectedType}</span>, got a <span class="hljs-subst">${getType(someValue)}</span>`</span>
-);
-<span class="hljs-keyword">try</span> {
-  <span class="hljs-keyword">const</span> aNumber: unknown = <span class="hljs-number">123</span>;
-  assertIsString(aNumber);
-} <span class="hljs-keyword">catch</span> (err) {
-  <span class="hljs-built_in">console</span>.log(err); <span class="hljs-comment">// An error with message &#x27;Im your message! Expected a string, got a number&#x27; will be logged</span>
-}</code></pre>
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">// Set your own assertion messages</span>
+<span style="color: #008000">//------------------------------------------------------------------------------</span>
+<span style="color: #008000">// A default assertion message is provided; will most likely be good enough for</span>
+<span style="color: #008000">// most cases</span>
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">defaultAssertionMessage</span><span style="color: #000000"> = </span><span style="color: #795E26">getAssertionMessage</span><span style="color: #000000">();</span>
+<span style="color: #795E26">setAssertionMessage</span><span style="color: #000000">(</span>
+<span style="color: #000000">  (</span><span style="color: #001080">someValue</span><span style="color: #000000">, </span><span style="color: #001080">expectedType</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span>
+<span style="color: #000000">    </span><span style="color: #A31515">`Im your message! Expected a </span><span style="color: #0000FF">${</span><span style="color: #001080">expectedType</span><span style="color: #0000FF">}</span><span style="color: #A31515">, got a </span><span style="color: #0000FF">${</span><span style="color: #795E26">getType</span><span style="color: #000000FF">(</span><span style="color: #001080">someValue</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #A31515">`</span>
+<span style="color: #000000">);</span>
+<span style="color: #AF00DB">try</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">aNumber</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000"> = </span><span style="color: #098658">123</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #795E26">assertIsString</span><span style="color: #000000">(</span><span style="color: #001080">aNumber</span><span style="color: #000000">);</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">err</span><span style="color: #000000">); </span><span style="color: #008000">// An error with message &#039;Im your message! Expected a string, got a number&#039; will be logged</span>
+<span style="color: #000000">}</span>
+</code></pre>
 				<a href="#complex-example----assertions-on-your-domain-data" id="complex-example----assertions-on-your-domain-data" style="color: inherit; text-decoration: none;">
 					<h3>Complex Example -- Assertions on your domain data</h3>
 				</a>
@@ -214,123 +211,124 @@ setAssertionMessage(
 					data we receive is valid to what our domain logic expects. With assertions, we
 					can safely validate the data we receive both matches the expected types, but
 				also add custom domain logic to validate that the data has the a valid value.</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { isObject, isString, isNumber, assert } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;assertate&quot;</span>;
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">isObject</span><span style="color: #000000">, </span><span style="color: #001080">isString</span><span style="color: #000000">, </span><span style="color: #001080">isNumber</span><span style="color: #000000">, </span><span style="color: #001080">assert</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;assertate&quot;</span><span style="color: #000000">;</span>
 
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// In this example we our going to write a Wizard validator.</span>
-<span class="hljs-comment">// A Wizard is just a human that can do magic!</span>
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-keyword">type</span> Human = {
-  name: <span class="hljs-built_in">string</span>;
-  age: <span class="hljs-built_in">number</span>;
-};
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">// In this example we our going to write a Wizard validator.</span>
+<span style="color: #008000">// A Wizard is just a human that can do magic!</span>
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">Human</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">name</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">age</span><span style="color: #000000">: </span><span style="color: #267F99">number</span><span style="color: #000000">;</span>
+<span style="color: #000000">};</span>
 
-<span class="hljs-keyword">type</span> Magical = {
-  canDoMagic: <span class="hljs-literal">true</span>;
-};
+<span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">Magical</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">canDoMagic</span><span style="color: #000000">: </span><span style="color: #267F99">true</span><span style="color: #000000">;</span>
+<span style="color: #000000">};</span>
 
-<span class="hljs-keyword">type</span> Wizard = Human &amp; Magical;
+<span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">Wizard</span><span style="color: #000000"> = </span><span style="color: #267F99">Human</span><span style="color: #000000"> &amp; </span><span style="color: #267F99">Magical</span><span style="color: #000000">;</span>
 
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// Now lets write some type-predicates to validate our domain logic</span>
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">/**
- * Determines if the `value` is a valid Human
- * - Has some non-empty string name
- * - Age is greater than 0
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isHuman</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Human</span> </span>{
-  <span class="hljs-comment">// we can now validate the data in the object matches our expected types</span>
-  <span class="hljs-keyword">if</span> (isObject(value) &amp;&amp; isString(value?.name) &amp;&amp; isNumber(value?.age)) {
-    <span class="hljs-keyword">const</span> { name, age } = value; <span class="hljs-comment">// compiler knows `name` is a string and `age` is a number</span>
-    <span class="hljs-comment">// we can do our own custom validations against the type-checked data as well</span>
-    <span class="hljs-comment">// humans must be older than 0 and have a non-empty string name</span>
-    <span class="hljs-keyword">if</span> (age &gt; <span class="hljs-number">0</span> &amp;&amp; name.length &gt; <span class="hljs-number">0</span>) {
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-    }
-  }
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-}
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">// Now lets write some type-predicates to validate our domain logic</span>
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * Determines if the `value` is a valid Human</span>
+<span style="color: #008000"> * - Has some non-empty string name</span>
+<span style="color: #008000"> * - Age is greater than 0</span>
+<span style="color: #008000"> */</span>
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">isHuman</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000">): </span><span style="color: #001080">value</span><span style="color: #000000"> </span><span style="color: #0000FF">is</span><span style="color: #000000"> </span><span style="color: #267F99">Human</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #008000">// we can now validate the data in the object matches our expected types</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #795E26">isObject</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">) &amp;&amp; </span><span style="color: #795E26">isString</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">?.</span><span style="color: #001080">name</span><span style="color: #000000">) &amp;&amp; </span><span style="color: #795E26">isNumber</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">?.</span><span style="color: #001080">age</span><span style="color: #000000">)) {</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">name</span><span style="color: #000000">, </span><span style="color: #0070C1">age</span><span style="color: #000000"> } = </span><span style="color: #001080">value</span><span style="color: #000000">; </span><span style="color: #008000">// compiler knows `name` is a string and `age` is a number</span>
+<span style="color: #000000">    </span><span style="color: #008000">// we can do our own custom validations against the type-checked data as well</span>
+<span style="color: #000000">    </span><span style="color: #008000">// humans must be older than 0 and have a non-empty string name</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">age</span><span style="color: #000000"> &gt; </span><span style="color: #098658">0</span><span style="color: #000000"> &amp;&amp; </span><span style="color: #001080">name</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> &gt; </span><span style="color: #098658">0</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">;</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-comment">/**
- * Determines if the `value` has a magical property
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isMagical</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Magical</span> </span>{
-  <span class="hljs-keyword">return</span> isObject(value) &amp;&amp; value?.magical === <span class="hljs-literal">true</span>;
-}
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * Determines if the `value` has a magical property</span>
+<span style="color: #008000"> */</span>
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">isMagical</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000">): </span><span style="color: #001080">value</span><span style="color: #000000"> </span><span style="color: #0000FF">is</span><span style="color: #000000"> </span><span style="color: #267F99">Magical</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #795E26">isObject</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">) &amp;&amp; </span><span style="color: #001080">value</span><span style="color: #000000">?.</span><span style="color: #001080">magical</span><span style="color: #000000"> === </span><span style="color: #0000FF">true</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-comment">/**
- * Determines if the `value` is a Wizard
- * - is a human
- * - is magical
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isWizard</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Wizard</span> </span>{
-  <span class="hljs-keyword">return</span> isHuman(value) &amp;&amp; isMagical(value);
-}
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * Determines if the `value` is a Wizard</span>
+<span style="color: #008000"> * - is a human</span>
+<span style="color: #008000"> * - is magical</span>
+<span style="color: #008000"> */</span>
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">isWizard</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000">): </span><span style="color: #001080">value</span><span style="color: #000000"> </span><span style="color: #0000FF">is</span><span style="color: #000000"> </span><span style="color: #267F99">Wizard</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #795E26">isHuman</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">) &amp;&amp; </span><span style="color: #795E26">isMagical</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">);</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// Lets write some type assertions that use the type-predicates we wrote</span>
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">/**
- * Asserts that `value` is a Human object
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assertIsHuman</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Human</span> </span>{
-  assert(isHuman(value));
-}
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">// Lets write some type assertions that use the type-predicates we wrote</span>
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * Asserts that `value` is a Human object</span>
+<span style="color: #008000"> */</span>
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">assertIsHuman</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000">): asserts </span><span style="color: #001080">value</span><span style="color: #000000"> </span><span style="color: #0000FF">is</span><span style="color: #000000"> </span><span style="color: #267F99">Human</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">assert</span><span style="color: #000000">(</span><span style="color: #795E26">isHuman</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">));</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-comment">/**
- * Asserts that `value` is a Magical object
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assertIsMagical</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Magical</span> </span>{
-  assert(isMagical(value));
-}
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * Asserts that `value` is a Magical object</span>
+<span style="color: #008000"> */</span>
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">assertIsMagical</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000">): asserts </span><span style="color: #001080">value</span><span style="color: #000000"> </span><span style="color: #0000FF">is</span><span style="color: #000000"> </span><span style="color: #267F99">Magical</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">assert</span><span style="color: #000000">(</span><span style="color: #795E26">isMagical</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">));</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-comment">/**
- * Asserts that `value` is a Wizard
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assertIsWizard</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">asserts</span> <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">Wizard</span> </span>{
-  assert(isWizard(value));
-}
+<span style="color: #008000">/**</span>
+<span style="color: #008000"> * Asserts that `value` is a Wizard</span>
+<span style="color: #008000"> */</span>
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">assertIsWizard</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000">): asserts </span><span style="color: #001080">value</span><span style="color: #000000"> </span><span style="color: #0000FF">is</span><span style="color: #000000"> </span><span style="color: #267F99">Wizard</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">assert</span><span style="color: #000000">(</span><span style="color: #795E26">isWizard</span><span style="color: #000000">(</span><span style="color: #001080">value</span><span style="color: #000000">));</span>
+<span style="color: #000000">}</span>
 
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// Now imagine the following two humans are fetched from over the wire and that</span>
-<span class="hljs-comment">// we know absolutely nothing about the data received.</span>
-<span class="hljs-comment">// For the sake of the example, we know that they both have the 3 valid</span>
-<span class="hljs-comment">// properties needed to be type-checked; but when receiving them from over</span>
-<span class="hljs-comment">// a REST endpoint or some random JSON file, we would know absolutely nothing.</span>
-<span class="hljs-comment">// The data retrieved could be a list, an object, a number, a string, anything.</span>
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">// With the `assertIs...` functions we wrote, we can validate that:</span>
-<span class="hljs-comment">//  - the data received is in fact an object</span>
-<span class="hljs-comment">//  - the object has the expected keys</span>
-<span class="hljs-comment">//  - the values of the keys conform to our expected domain logic for Human,</span>
-<span class="hljs-comment">//    Magical, and Wizard</span>
-<span class="hljs-comment">////////////////////////////////////////////////////////////////////////////////</span>
-<span class="hljs-comment">// Dr. Strange? He&#x27;s magic!</span>
-<span class="hljs-keyword">const</span> stephenStrange: unknown = {
-  name: <span class="hljs-string">&quot;Stephen Strange&quot;</span>,
-  age: <span class="hljs-number">90</span>, <span class="hljs-comment">// born 1930</span>
-  canDoMagic: <span class="hljs-literal">true</span>
-};
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">// Now imagine the following two humans are fetched from over the wire and that</span>
+<span style="color: #008000">// we know absolutely nothing about the data received.</span>
+<span style="color: #008000">// For the sake of the example, we know that they both have the 3 valid</span>
+<span style="color: #008000">// properties needed to be type-checked; but when receiving them from over</span>
+<span style="color: #008000">// a REST endpoint or some random JSON file, we would know absolutely nothing.</span>
+<span style="color: #008000">// The data retrieved could be a list, an object, a number, a string, anything.</span>
+<span style="color: #008000">//</span>
+<span style="color: #008000">// With the `assertIs...` functions we wrote, we can validate that:</span>
+<span style="color: #008000">//  - the data received is in fact an object</span>
+<span style="color: #008000">//  - the object has the expected keys</span>
+<span style="color: #008000">//  - the values of the keys conform to our expected domain logic for Human,</span>
+<span style="color: #008000">//    Magical, and Wizard</span>
+<span style="color: #008000">////////////////////////////////////////////////////////////////////////////////</span>
+<span style="color: #008000">// Dr. Strange? He&#039;s magic!</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">stephenStrange</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;Stephen Strange&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">age:</span><span style="color: #000000"> </span><span style="color: #098658">90</span><span style="color: #000000">, </span><span style="color: #008000">// born 1930</span>
+<span style="color: #000000">  </span><span style="color: #001080">canDoMagic:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span>
+<span style="color: #000000">};</span>
 
-<span class="hljs-comment">// Iron Man? sadly not</span>
-<span class="hljs-keyword">const</span> tonyStark: unknown = {
-  name: <span class="hljs-string">&quot;Tony Stark&quot;</span>,
-  age: <span class="hljs-number">50</span>, <span class="hljs-comment">// born 1970</span>
-  canDoMagic: <span class="hljs-literal">false</span>
-};
+<span style="color: #008000">// Iron Man? sadly not</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">tonyStark</span><span style="color: #000000">: </span><span style="color: #267F99">unknown</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;Tony Stark&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">age:</span><span style="color: #000000"> </span><span style="color: #098658">50</span><span style="color: #000000">, </span><span style="color: #008000">// born 1970</span>
+<span style="color: #000000">  </span><span style="color: #001080">canDoMagic:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span>
+<span style="color: #000000">};</span>
 
-assertIsHuman(stephenStrange); <span class="hljs-comment">// no Error thrown</span>
-assertIsHuman(tonyStark); <span class="hljs-comment">// no Error thrown</span>
-<span class="hljs-comment">// compiler now knows that both people are humans</span>
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> person <span class="hljs-keyword">of</span> [stephenStrange, tonyStark]) {
-  <span class="hljs-keyword">try</span> {
-    assertIsMagical(person); <span class="hljs-comment">// no Error thrown for stephenStrange, Error thrown for tonyStark</span>
-    assertIsWizard(person); <span class="hljs-comment">// no Error thrown for stephenStrange, code won&#x27;t be reached for tonyStark</span>
-  } <span class="hljs-keyword">catch</span> (err) {
-    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`<span class="hljs-subst">${person.name}</span> isn&#x27;t a wizard :(`</span>); <span class="hljs-comment">// we can access `person.name` because the compiler knows the person is a human</span>
-  }
-}</code></pre>
+<span style="color: #795E26">assertIsHuman</span><span style="color: #000000">(</span><span style="color: #001080">stephenStrange</span><span style="color: #000000">); </span><span style="color: #008000">// no Error thrown</span>
+<span style="color: #795E26">assertIsHuman</span><span style="color: #000000">(</span><span style="color: #001080">tonyStark</span><span style="color: #000000">); </span><span style="color: #008000">// no Error thrown</span>
+<span style="color: #008000">// compiler now knows that both people are humans</span>
+<span style="color: #AF00DB">for</span><span style="color: #000000"> (</span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">person</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> [</span><span style="color: #001080">stephenStrange</span><span style="color: #000000">, </span><span style="color: #001080">tonyStark</span><span style="color: #000000">]) {</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">try</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #795E26">assertIsMagical</span><span style="color: #000000">(</span><span style="color: #001080">person</span><span style="color: #000000">); </span><span style="color: #008000">// no Error thrown for stephenStrange, Error thrown for tonyStark</span>
+<span style="color: #000000">    </span><span style="color: #795E26">assertIsWizard</span><span style="color: #000000">(</span><span style="color: #001080">person</span><span style="color: #000000">); </span><span style="color: #008000">// no Error thrown for stephenStrange, code won&#039;t be reached for tonyStark</span>
+<span style="color: #000000">  } </span><span style="color: #AF00DB">catch</span><span style="color: #000000"> (</span><span style="color: #001080">err</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">`</span><span style="color: #0000FF">${</span><span style="color: #001080">person</span><span style="color: #000000FF">.</span><span style="color: #001080">name</span><span style="color: #0000FF">}</span><span style="color: #A31515"> isn&#039;t a wizard :(`</span><span style="color: #000000">); </span><span style="color: #008000">// we can access `person.name` because the compiler knows the person is a human</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+</code></pre>
 				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
 					<h2>API</h2>
 				</a>
@@ -341,16 +339,94 @@ assertIsHuman(tonyStark); <span class="hljs-comment">// no Error thrown</span>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_index_.html">&quot;index&quot;</a>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#AssertionMessageType" class="tsd-kind-icon">Assertion<wbr>Message<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assert" class="tsd-kind-icon">assert</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#assertIsArray" class="tsd-kind-icon">assert<wbr>IsArray</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsBigInt" class="tsd-kind-icon">assert<wbr>IsBig<wbr>Int</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsBoolean" class="tsd-kind-icon">assert<wbr>IsBoolean</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsDefined" class="tsd-kind-icon">assert<wbr>IsDefined</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsNotUndefined" class="tsd-kind-icon">assert<wbr>IsNot<wbr>Undefined</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsNull" class="tsd-kind-icon">assert<wbr>IsNull</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsNumber" class="tsd-kind-icon">assert<wbr>IsNumber</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsObject" class="tsd-kind-icon">assert<wbr>IsObject</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsString" class="tsd-kind-icon">assert<wbr>IsString</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsSymbol" class="tsd-kind-icon">assert<wbr>IsSymbol</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#assertIsUndefined" class="tsd-kind-icon">assert<wbr>IsUndefined</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#getAssertionMessage" class="tsd-kind-icon">get<wbr>Assertion<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#getType" class="tsd-kind-icon">get<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isArray" class="tsd-kind-icon">is<wbr>Array</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isBigInt" class="tsd-kind-icon">is<wbr>Big<wbr>Int</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isBoolean" class="tsd-kind-icon">is<wbr>Boolean</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isDefined" class="tsd-kind-icon">is<wbr>Defined</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isNotUndefined" class="tsd-kind-icon">is<wbr>Not<wbr>Undefined</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isNull" class="tsd-kind-icon">is<wbr>Null</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isNumber" class="tsd-kind-icon">is<wbr>Number</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#isObject" class="tsd-kind-icon">is<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isString" class="tsd-kind-icon">is<wbr>String</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isSymbol" class="tsd-kind-icon">is<wbr>Symbol</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#isUndefined" class="tsd-kind-icon">is<wbr>Undefined</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#setAssertionMessage" class="tsd-kind-icon">set<wbr>Assertion<wbr>Message</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -360,11 +436,6 @@ assertIsHuman(tonyStark); <span class="hljs-comment">// no Error thrown</span>
 	<div class="container">
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-			</ul>
 		</div>
 	</div>
 </footer>
