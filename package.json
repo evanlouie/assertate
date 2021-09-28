@@ -1,6 +1,6 @@
 {
   "name": "assertate",
-  "version": "2.3.4",
+  "version": "2.4.0",
   "description": "TypeScript assertion helpers",
   "keywords": [
     "TypeScript",
