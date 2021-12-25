@@ -384,6 +384,7 @@ export function assert(
   message?: string
 ): asserts condition {
   if (!condition) {
+    debugger
     throw Error(message);
   }
 }

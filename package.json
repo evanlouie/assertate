@@ -9,12 +9,14 @@
     "assertion",
     "isomorphic",
     "client",
-    "server"
+    "server",
+    "debug"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "author": "Evan Louie <evlouie@gmail.com>",
-  "homepage": "https://github.com/evanlouie/assertate/",
+  "author": "Maximillian Dornseif <md@foxel.org>",
+  "homepage": "https://github.com/mdornseif/assertate-debug/",
+  "repository": "https://github.com/mdornseif/assertate-debug",
   "license": "MIT",
   "scripts": {
     "generate-docs": "shx rm -rf docs && typedoc --out docs src && shx touch docs/.nojekyll",
