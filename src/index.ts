@@ -362,11 +362,11 @@ export function assertIsNotUndefined(
  * @param additionalMessage  further information on failure
  * @throws {Error}
  */
-export function assertIsDefined(
-  value: unknown,
+export function assertIsDefined<T>(
+  value: T,
   variableName?: string,
   additionalMessage?: string
-): asserts value is NonNullable<any> {
+): asserts value is NonNullable<T> {
   assert(
     isDefined(value),
     AssertionMessage(value, "defined", variableName, additionalMessage)
@@ -384,6 +384,7 @@ export function assert(
   message?: string
 ): asserts condition {
   if (!condition) {
+    debugger
     throw Error(message);
   }
 }
