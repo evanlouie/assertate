@@ -7,7 +7,7 @@ This is Evan Louie's most excellent [assertate](https://www.npmjs.com/package/as
 Assertate is a minimal library exposing basic
 [TypeScript 3.7 assertion](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions) helpers with the goal of providing a combination of compile time type assertions and run time assertions.
 
-In the `assertate-debug` variant you will be thrown into a debugger if an assentation fails. In most Javascript Implementation this will only happen if the code is actually executed in a debugger. If not, the assert will fail as usual.
+In the `assertate-debug` variant you will be thrown into a debugger if an assentation fails. In most Javascript Engine implementations, this will only happen if the code is actually executed in a debugger. If not, the assert will fail as usual.
 
 This works very nice with The VScode debugger and a "run Jest" configuration. [Add a debugger Configuration](http://f.foxel.org/Screen-Shot-2021-12-24-15-08-31.png) like this:
 
